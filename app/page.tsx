@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
 import { init, id } from '@instantdb/react';
 import { usePathname } from "next/navigation";
+import Link from 'next/link'
 
 const db = init({
   appId: "7ac1af9c-32c3-4106-a98b-8cdc64a8c4bf",
@@ -61,9 +62,11 @@ export default function HomePage() {
   return (
     <main className="relative flex w-full flex-1 flex-col ">
       <div className="absolute left-0">
-        {data.chats.map((chat) => (
-          <div key={chat.id}>{chat.id}</div>
-        ))}
+        <div className="relative z-20 flex flex-col">
+          {data.chats.map((chat) => (
+            <Link href={`/chat/${chat.id}`} key={chat.id}>New Chat</Link>
+          ))}
+        </div>
       </div>
       <div className="absolute bottom-10 w-full pr-2">
         <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-col text-center">
