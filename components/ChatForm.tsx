@@ -6,16 +6,17 @@ import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
 import { id } from '@instantdb/react';
 
-function addMessage(text: string, chatId: string) {
+function addMessage(text: string, type: string, chatId: string) {
     db.transact(
       db.tx.messages[id()].update({
         chatId,
         text,
+        type,
         createdAt: new Date(),
       }),
     );
   }
-  
+
   function startChat(id: string) {
     const newChat = db.transact(
       db.tx.chats[id].update({
@@ -27,26 +28,52 @@ function addMessage(text: string, chatId: string) {
 
 export default function ChatForm({ pageChatId, home }: { pageChatId: string, home?: boolean }) {
 
-    const [input, setInput] = useState('');
+  const [input, setInput] = useState('');
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-        if (
-            ((e.key === 'Enter' || e.key === 'NumpadEnter') && !e.shiftKey)
-        ) {
-            e.preventDefault()
-            e.currentTarget.form?.requestSubmit()
-        }
-        }
-
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        if (home) {
-            startChat(pageChatId);
-            window.history.pushState({}, '', window.location.href + `/${pageChatId}`);
-        }
-        addMessage(input, pageChatId);
-        setInput('');
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (
+      ((e.key === 'Enter' || e.key === 'NumpadEnter') && !e.shiftKey)
+    ) {
+      e.preventDefault()
+      e.currentTarget.form?.requestSubmit()
     }
+  }
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (home) {
+        startChat(pageChatId);
+        window.history.pushState({}, '', window.location.href + `/${pageChatId}`);
+    }
+    addMessage(input, 'question', pageChatId);
+    setInput('');
+    try {
+        // First, make the API call
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            message: input,
+            chatId: pageChatId,
+          }),
+        });
+  
+        if (!response.ok) {
+          throw new Error('Failed to get AI response');
+        }
+  
+        const aiResponse = await response.text();
+
+        addMessage(aiResponse, 'answer', pageChatId);
+
+        console.log(aiResponse);
+    } catch (error) {
+        console.error('Error:', error);
+        // Handle error appropriately
+      }
+  }
 
   return (
     <div className="absolute bottom-10 w-full pr-2">

@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { db } from '@/lib/instant';
 import ChatForm from '@/components/ChatForm';
 
-export default function HomePage() {
+export default function Page() {
 
   const pathname = usePathname();
   const [pageChatId] = useState(pathname.split('/').pop() || id());
@@ -30,13 +30,28 @@ export default function HomePage() {
       <div className="relative flex-1 overflow-hidden">
         <div className="scrollbar scrollbar-w-2 scrollbar-thumb-gray-700 scrollbar-track-transparent hover:scrollbar-thumb-gray-600 h-[100dvh] overflow-y-auto pb-[140px]">
           <div className="mx-auto flex w-full max-w-3xl flex-col space-y-12 p-4 pb-8">
-            <div className="flex justify-end">
-              <div className="group relative inline-block max-w-[80%] break-words rounded bg-secondary p-4 text-left">
-                {data.messages.map((message) => (
-                  <div key={message.id}>{message.text}</div>
-                ))}
-              </div>
-            </div>
+            {data.messages.map((message) => (
+                <div key={message.id}>
+                    {
+                        message.type === 'question' ? 
+                        (
+                            <div className="flex justify-end">
+                                <div className="group relative inline-block max-w-[80%] break-words rounded bg-secondary p-4 text-left">
+                                    <div>{message.text}</div>
+                                </div>
+                            </div>
+                        )
+                   :
+                        (
+                            <div className="flex justify-start">
+                                <div className="group relative w-full max-w-full break-words">
+                                    <div className="prose prose-neutral prose-invert max-w-none prose-pre:m-0 prose-pre:bg-transparent prose-pre:p-0">{message.text}</div>
+                                </div>
+                            </div>
+                        )
+                    }
+                </div>
+            ))}
             <div className="flex justify-start">
               <div className="group relative w-full max-w-full break-words">
                 <div className="prose prose-neutral prose-invert max-w-none prose-pre:m-0 prose-pre:bg-transparent prose-pre:p-0">
