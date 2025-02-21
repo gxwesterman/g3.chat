@@ -17,9 +17,9 @@ export default function ChatLayout({
     <main className="relative flex w-full flex-1 flex-col ">
       <div className="absolute left-0">
         <div className="relative z-20 flex flex-col">
-          <Link href='/'>Home</Link>
+          <Link href='/chat'>Home</Link>
           {data.chats.map((chat) => (
-            <Link href={`/chat/${chat.id}`} key={chat.id}>New Chat</Link>
+            <Link href={`/chat/${chat.id}`} key={chat.id} prefetch={true}>New Chat</Link>
           ))}
         </div>
       </div>

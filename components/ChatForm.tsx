@@ -42,7 +42,7 @@ export default function ChatForm({ pageChatId, home }: { pageChatId: string, hom
         e.preventDefault();
         if (home) {
             startChat(pageChatId);
-            window.history.pushState({}, '', window.location.href + `chat/${pageChatId}`);
+            window.history.pushState({}, '', window.location.href + `/${pageChatId}`);
         }
         addMessage(input, pageChatId);
         setInput('');
