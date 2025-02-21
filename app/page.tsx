@@ -2,7 +2,7 @@
 
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { init, id } from '@instantdb/react';
 import { usePathname } from "next/navigation";
 import Link from 'next/link'
@@ -11,9 +11,10 @@ const db = init({
   appId: "7ac1af9c-32c3-4106-a98b-8cdc64a8c4bf",
 });
 
-function addMessage(text: string) {
+function addMessage(text: string, chatId: string) {
   db.transact(
     db.tx.messages[id()].update({
+      chatId,
       text,
       createdAt: new Date(),
     }),
@@ -32,6 +33,8 @@ function startChat(id: string) {
 export default function HomePage() {
 
   const pathname = usePathname();
+  const [pageChatId] = useState(pathname.split('/').pop() || id());
+  const [input, setInput] = useState('');
   const lauremIpsom = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (
@@ -42,20 +45,25 @@ export default function HomePage() {
     }
   }
 
-  const [input, setInput] = useState('');
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (pathname === '/') {
-      const chatId = id();
-      startChat(chatId);
-      window.history.pushState({}, '', window.location.href + `chat/${chatId}`);
+      startChat(pageChatId);
+      window.history.pushState({}, '', window.location.href + `chat/${pageChatId}`);
     }
-    addMessage(input);
+    addMessage(input, pageChatId);
     setInput('');
   }
 
-  const { isLoading, error, data } = db.useQuery({ chats: {}, messages: {} });
+  const messagesQuery = {
+    $: {
+      where: {
+        chatId: pageChatId
+      }
+    }
+  };
+
+  const { isLoading, error, data } = db.useQuery({ chats: {}, messages: messagesQuery });
   if (isLoading) return <div>Fetching data...</div>;
   if (error) return <div>Error fetching data: {error.message}</div>;
 
@@ -63,6 +71,7 @@ export default function HomePage() {
     <main className="relative flex w-full flex-1 flex-col ">
       <div className="absolute left-0">
         <div className="relative z-20 flex flex-col">
+          {pageChatId}
           {data.chats.map((chat) => (
             <Link href={`/chat/${chat.id}`} key={chat.id}>New Chat</Link>
           ))}
