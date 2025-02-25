@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
 import { id } from '@instantdb/react';
+import { usePathname } from 'next/navigation';
 
 function addMessage(text: string, type: string, chatId: string) {
     db.transact(
@@ -26,7 +27,11 @@ function addMessage(text: string, type: string, chatId: string) {
     return newChat;
   }
 
-export default function ChatForm({ pageChatId, home }: { pageChatId: string, home?: boolean }) {
+export default function ChatForm() {
+
+  const pathname = usePathname();
+  var pageChatId = (pathname.split('/').pop() || '');
+  console.log(pageChatId);
 
   const [input, setInput] = useState('');
 
@@ -41,7 +46,8 @@ export default function ChatForm({ pageChatId, home }: { pageChatId: string, hom
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (home) {
+    if (pageChatId === 'chat') {
+        pageChatId = id();
         startChat(pageChatId);
         window.history.pushState({}, '', window.location.href + `/${pageChatId}`);
     }
