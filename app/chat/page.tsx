@@ -50,12 +50,6 @@ export default function Page() {
                   }
               </div>
           ))}
-          <div className="flex justify-start">
-            <div className="group relative w-full max-w-full break-words">
-              <div className="prose prose-neutral prose-invert max-w-none prose-pre:m-0 prose-pre:bg-transparent prose-pre:p-0">
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>

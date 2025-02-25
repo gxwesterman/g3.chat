@@ -31,7 +31,6 @@ export default function ChatForm() {
 
   const pathname = usePathname();
   var pageChatId = (pathname.split('/').pop() || '');
-  console.log(pageChatId);
 
   const [input, setInput] = useState('');
 
