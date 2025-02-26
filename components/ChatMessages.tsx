@@ -21,14 +21,14 @@ export default function Page() {
   };
 
   const { isLoading, error, data } = db.useQuery({ messages: messagesQuery });
-  if (isLoading) return <div></div>;
+  if (isLoading) return <div>Fetching data...</div>;
   if (error) return <div>Error fetching data: {error.message}</div>;
 
   return (
     <div className="relative flex-1 overflow-hidden">
       <div className="scrollbar scrollbar-w-2 scrollbar-thumb-gray-700 scrollbar-track-transparent hover:scrollbar-thumb-gray-600 h-[100dvh] overflow-y-auto pb-[140px]">
         <div className="mx-auto flex w-full max-w-3xl flex-col space-y-12 p-4 pb-8">
-        {data.messages.map((message) => (
+          {data.messages.map((message) => (
               <div key={message.id}>
                   {
                       message.type === 'question' ? 

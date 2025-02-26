@@ -21,7 +21,7 @@ export default function Page() {
   };
 
   const { isLoading, error, data } = db.useQuery({ messages: messagesQuery });
-  if (isLoading) return <div>Fetching data...</div>;
+  if (isLoading) return <div></div>;
   if (error) return <div>Error fetching data: {error.message}</div>;
 
   return (
