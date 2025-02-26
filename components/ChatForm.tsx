@@ -8,24 +8,24 @@ import { id } from '@instantdb/react';
 import { usePathname } from 'next/navigation';
 
 function addMessage(text: string, type: string, chatId: string) {
-    db.transact(
-      db.tx.messages[id()].update({
-        chatId,
-        text,
-        type,
-        createdAt: new Date(),
-      }),
-    );
-  }
+  db.transact(
+    db.tx.messages[id()].update({
+      chatId,
+      text,
+      type,
+      createdAt: new Date(),
+    }),
+  );
+}
 
-  function startChat(id: string) {
-    const newChat = db.transact(
-      db.tx.chats[id].update({
-        createdAt: new Date(),
-      }),
-    );
-    return newChat;
-  }
+function startChat(id: string) {
+  const newChat = db.transact(
+    db.tx.chats[id].update({
+      createdAt: new Date(),
+    }),
+  );
+  return newChat;
+}
 
 export default function ChatForm() {
 
@@ -81,28 +81,28 @@ export default function ChatForm() {
   }
 
   return (
-    <div className="absolute bottom-10 w-full pr-2">
-        <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-col text-center">
-          <form
-            className="flex items-center gap-2 bg-secondary rounded"
-            onSubmit={handleSubmit}
+    <div className="absolute bottom-0 w-full pr-2">
+      <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-col text-center">
+        <form
+          className="flex items-center gap-2 bg-secondary rounded"
+          onSubmit={handleSubmit}
+        >
+          <Textarea
+            name="message"
+            className="grow resize-none border-none outline-none text-base shadow-none focus-visible:ring-0"
+            placeholder="Type your message here..."
+            onKeyDown={handleKeyDown}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+          />
+          <Button
+            className="mr-3"
+            type="submit"
           >
-            <Textarea
-              name="message"
-              className="grow resize-none border-none outline-none text-base shadow-none focus-visible:ring-0"
-              placeholder="Type your message here..."
-              onKeyDown={handleKeyDown}
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-            />
-            <Button
-              className="mr-3"
-              type="submit"
-            >
-              Submit
-            </Button>
-          </form>
-        </div>
+            Submit
+          </Button>
+        </form>
       </div>
+    </div>
   );
 }
