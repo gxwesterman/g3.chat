@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
 import { id } from '@instantdb/react';
 import { usePathname } from 'next/navigation';
+import { Send } from 'lucide-react';
 
 function addMessage(text: string, type: string, chatId: string) {
   db.transact(
@@ -14,7 +15,7 @@ function addMessage(text: string, type: string, chatId: string) {
       text,
       type,
       createdAt: new Date(),
-    }),
+    }).link({ chats: chatId }),
   );
 }
 
@@ -99,7 +100,7 @@ export default function ChatForm() {
             className="mr-3"
             type="submit"
           >
-            Submit
+            <Send />
           </Button>
         </form>
       </div>
