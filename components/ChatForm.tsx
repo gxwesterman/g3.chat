@@ -68,28 +68,30 @@ export default function ChatForm({ setOutput } : { setOutput: (output: string) =
         if (!response.ok) {
           throw new Error('Failed to get AI response');
         }
-  
-        const reader = response.body.getReader();
-        const decoder = new TextDecoder();
-        let done = false;
-        let result = '';
-          
-        // Continuously read from the stream
-        while (!done) {
-          const { value, done: readerDone } = await reader.read();
-          done = readerDone;
-          
-          // Decode the chunk into a string and append to the result
-          result += decoder.decode(value, { stream: true });
-          
-          // Optionally, you can update the UI to display the partial result here
-          setOutput(result);
-          console.log(result);  // For debugging purposes (can replace with your state update)
-        }
 
-        // At this point, 'result' contains the full response
-        setOutput('');
-        addMessage(result, 'answer', pageChatId);
+        if (response.body) {
+          const reader = response.body.getReader();
+          const decoder = new TextDecoder();
+          let done = false;
+          let result = '';
+            
+          // Continuously read from the stream
+          while (!done) {
+            const { value, done: readerDone } = await reader.read();
+            done = readerDone;
+            
+            // Decode the chunk into a string and append to the result
+            result += decoder.decode(value, { stream: true });
+            
+            // Optionally, you can update the UI to display the partial result here
+            setOutput(result);
+            console.log(result);  // For debugging purposes (can replace with your state update)
+          }
+  
+          // At this point, 'result' contains the full response
+          setOutput('');
+          addMessage(result, 'answer', pageChatId);
+        }
 
       } catch (error) {
         console.error('Error:', error);
