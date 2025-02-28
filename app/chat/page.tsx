@@ -1,10 +1,11 @@
 'use client'
 
 import React, { useState } from "react";
-import { id } from '@instantdb/react';
 import { usePathname } from "next/navigation";
 import { db } from '@/lib/instant';
 import ChatForm from '@/components/ChatForm';
+import ReactMarkdown from "react-markdown"
+import remarkGfm from "remark-gfm";
 
 export default function Page() {
 
@@ -31,7 +32,7 @@ export default function Page() {
       <div className="scrollbar scrollbar-w-2 scrollbar-thumb-gray-700 scrollbar-track-transparent hover:scrollbar-thumb-gray-600 h-[100dvh] overflow-y-auto pb-[140px]">
         <div className="mx-auto flex w-full max-w-3xl flex-col space-y-12 p-4 pb-8">
           {data.messages.map((message) => (
-              <div key={message.id}>
+              <div key={message.id} className="chat-content">
                   {
                       message.type === 'question' ? 
                       (
@@ -45,7 +46,9 @@ export default function Page() {
                       (
                           <div className="flex justify-start">
                               <div className="group relative w-full max-w-full break-words">
-                                  <div className="prose prose-neutral prose-invert max-w-none prose-pre:m-0 prose-pre:bg-transparent prose-pre:p-0">{message.text}</div>
+                                  <div className="space-y-4 prose prose-neutral prose-invert max-w-none prose-pre:m-0 prose-pre:bg-transparent prose-pre:p-0">
+                                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{message.text}</ReactMarkdown>
+                                  </div>
                               </div>
                           </div>
                       )
@@ -54,7 +57,9 @@ export default function Page() {
           ))}
           <div className="flex justify-start">
               <div className="group relative w-full max-w-full break-words">
-                  <div className="prose prose-neutral prose-invert max-w-none prose-pre:m-0 prose-pre:bg-transparent prose-pre:p-0">{output}</div>
+                  <div className="prose prose-neutral prose-invert max-w-none prose-pre:m-0 prose-pre:bg-transparent prose-pre:p-0">
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{output}</ReactMarkdown>
+                  </div>
               </div>
           </div>
         </div>
