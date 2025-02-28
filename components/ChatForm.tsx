@@ -28,11 +28,10 @@ function startChat(id: string) {
   return newChat;
 }
 
-export default function ChatForm() {
+export default function ChatForm({ setOutput } : { setOutput: (output: string) => void }) {
 
   const pathname = usePathname();
   var pageChatId = (pathname.split('/').pop() || '');
-
   const [input, setInput] = useState('');
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -70,12 +69,29 @@ export default function ChatForm() {
           throw new Error('Failed to get AI response');
         }
   
-        const aiResponse = await response.text();
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let done = false;
+        let result = '';
+          
+        // Continuously read from the stream
+        while (!done) {
+          const { value, done: readerDone } = await reader.read();
+          done = readerDone;
+          
+          // Decode the chunk into a string and append to the result
+          result += decoder.decode(value, { stream: true });
+          
+          // Optionally, you can update the UI to display the partial result here
+          setOutput(result);
+          console.log(result);  // For debugging purposes (can replace with your state update)
+        }
 
-        addMessage(aiResponse, 'answer', pageChatId);
+        // At this point, 'result' contains the full response
+        setOutput('');
+        addMessage(result, 'answer', pageChatId);
 
-        console.log(aiResponse);
-    } catch (error) {
+      } catch (error) {
         console.error('Error:', error);
         // Handle error appropriately
       }
