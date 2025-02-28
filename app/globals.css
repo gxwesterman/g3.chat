@@ -100,8 +100,7 @@ body {
 .chat-content ul,
 .chat-content menu {
   list-style: disc;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding: 1rem;
 }
 
 .chat-content pre {

@@ -31,16 +31,16 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarContent>
         <SidebarHeader className="pt-5 px-3">
-          <Link href='/chat' onClick={() => setActiveChatId('')}>G3 Chat</Link>
+          <a className="hover:cursor-pointer" onClick={() => window.history.pushState({}, '', '/chat')}>G3 Chat</a>
         </SidebarHeader>
         <SidebarMenu className="px-3">
           {data.chats.map((chat) => (
             <SidebarMenuItem key={chat.id}>
               <SidebarMenuButton isActive={activeChatId === chat.id} asChild className="py-5" onClick={() => setActiveChatId(chat.id)}>
-                <Link href={`/chat/${chat.id}`} key={chat.id} className="flex items-center justify-between">
+                <a onClick={() => window.history.pushState({}, '', `/chat/${chat.id}`)} key={chat.id} className="hover:cursor-pointer flex items-center justify-between">
                   <div>New Chat</div>
                   <X onClick={(e) => deleteChat(e, chat.id)} />
-                </Link>
+                </a>
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}
