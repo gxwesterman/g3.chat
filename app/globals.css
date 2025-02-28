@@ -103,3 +103,9 @@ body {
   padding-left: 1rem;
   padding-right: 1rem;
 }
+
+.chat-content pre {
+  background-color: hsl(var(--muted));
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
