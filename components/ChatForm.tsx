@@ -3,7 +3,7 @@
 import { db } from '@/lib/instant';
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { id } from '@instantdb/react';
 import { usePathname } from 'next/navigation';
 import { Send } from 'lucide-react';
@@ -28,11 +28,26 @@ function startChat(id: string) {
   return newChat;
 }
 
-export default function ChatForm({ setOutput } : { setOutput: (output: string) => void }) {
+export default function ChatForm({ output, setOutput } : { output: string, setOutput: (output: string) => void }) {
 
   const pathname = usePathname();
   var pageChatId = (pathname.split('/').pop() || '');
   const [input, setInput] = useState('');
+  const [text, setText] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      if (currentIndex < text.length) {
+        setOutput(output + text[currentIndex]);
+        setCurrentIndex(currentIndex + 1);
+      } else {
+        clearInterval(intervalId);
+      }
+    }, 0.000001);
+
+    return () => clearInterval(intervalId);
+  }, [text, currentIndex]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (
@@ -53,7 +68,6 @@ export default function ChatForm({ setOutput } : { setOutput: (output: string) =
     addMessage(input, 'question', pageChatId);
     setInput('');
     try {
-        // First, make the API call
         const response = await fetch('/api/chat', {
           method: 'POST',
           headers: {
@@ -79,17 +93,16 @@ export default function ChatForm({ setOutput } : { setOutput: (output: string) =
           while (!done) {
             const { value, done: readerDone } = await reader.read();
             done = readerDone;
-            
-            // Decode the chunk into a string and append to the result
             result += decoder.decode(value, { stream: true });
-            
-            // Optionally, you can update the UI to display the partial result here
-            setOutput(result);
-            console.log(result);  // For debugging purposes (can replace with your state update)
+
+            //setOutput(result);
+            setText(result);
+            //console.log(result);
           }
   
-          // At this point, 'result' contains the full response
           setOutput('');
+          setText('');
+          setCurrentIndex(0);
           addMessage(result, 'answer', pageChatId);
         }
 
