@@ -81,15 +81,7 @@ body {
 @layer base {
   * {
     @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
+    @apply outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;
@@ -106,5 +98,7 @@ body {
 .chat-content pre {
   background-color: hsl(var(--muted));
   padding: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   border-radius: 0.5rem;
 }
