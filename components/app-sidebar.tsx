@@ -18,7 +18,7 @@ export function AppSidebar() {
   if (error) return <div>Error fetching data: {error.message}</div>;
 
   const deleteChat = (e: React.MouseEvent<SVGSVGElement, MouseEvent>, chatId: string) => {
-    e.preventDefault();
+    e.stopPropagation();
     db.transact(db.tx.chats[chatId].delete());
     db.transact(data.messages.filter((message) => message.chatId === chatId).map((m) => db.tx.messages[m.id].delete()));
     if (activeChatId === chatId) {
@@ -36,12 +36,10 @@ export function AppSidebar() {
           {data.chats.map((chat) => (
             <SidebarMenuItem key={chat.id}>
               <SidebarMenuButton isActive={activeChatId === chat.id} asChild className="py-5" onClick={() => setActiveChatId(chat.id)}>
-                <div className="flex justify-between">
-                  <a onClick={() => window.history.pushState({}, '', `/chat/${chat.id}`)} key={chat.id} className="grow hover:cursor-default flex items-center justify-between">
-                    <div>New Chat</div>
-                  </a>
-                  <X onClick={(e) => deleteChat(e, chat.id)} className="hover:cursor-pointer" />
-                </div>
+                <a onClick={() => window.history.pushState({}, '', `/chat/${chat.id}`)} key={chat.id} className="hover:cursor-pointer flex items-center justify-between">
+                  <div>New Chat</div>
+                  <X onClick={(e) => deleteChat(e, chat.id)} />
+                </a>
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}
