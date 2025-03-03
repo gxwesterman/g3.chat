@@ -92,7 +92,9 @@ body {
 .chat-content ul,
 .chat-content menu {
   list-style: disc;
-  padding: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
 }
 
 .chat-content pre {
