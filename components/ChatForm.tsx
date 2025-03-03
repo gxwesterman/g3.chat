@@ -37,16 +37,17 @@ export default function ChatForm({ output, setOutput } : { output: string, setOu
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      if (currentIndex < text.length) {
-        setOutput(output + text[currentIndex]);
-        setCurrentIndex(currentIndex + 1);
-      } else {
-        clearInterval(intervalId);
-      }
-    }, 0.000001);
-
-    return () => clearInterval(intervalId);
+    if (text.length > 0) {
+      const intervalId = setInterval(() => {
+        if (currentIndex < text.length) {
+          setOutput(output + text[currentIndex]);
+          setCurrentIndex(currentIndex + 1);
+        } else {
+          clearInterval(intervalId);
+        }
+      }, 1);
+      return () => clearInterval(intervalId);
+    }
   }, [text, currentIndex]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
