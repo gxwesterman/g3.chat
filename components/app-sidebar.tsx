@@ -1,6 +1,5 @@
 import { Sidebar, SidebarContent, SidebarHeader, SidebarMenu, SidebarMenuItem, SidebarMenuButton } from "@/components/ui/sidebar"
 import { db } from '@/lib/instant';
-import Link from 'next/link';
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { X } from 'lucide-react';
