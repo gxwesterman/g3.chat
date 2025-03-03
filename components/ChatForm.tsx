@@ -94,10 +94,7 @@ export default function ChatForm({ output, setOutput } : { output: string, setOu
             const { value, done: readerDone } = await reader.read();
             done = readerDone;
             result += decoder.decode(value, { stream: true });
-
-            //setOutput(result);
             setText(result);
-            //console.log(result);
           }
   
           setOutput('');
