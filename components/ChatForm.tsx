@@ -38,15 +38,13 @@ export default function ChatForm({ output, setOutput } : { output: string, setOu
 
   useEffect(() => {
     if (text.length > 0) {
-      const intervalId = setInterval(() => {
+      const timer = setInterval(() => {
         if (currentIndex < text.length) {
           setOutput(output + text[currentIndex]);
           setCurrentIndex(currentIndex + 1);
-        } else {
-          clearInterval(intervalId);
         }
-      }, 1);
-      return () => clearInterval(intervalId);
+      }, 0.000001);
+      return () => clearInterval(timer);
     }
   }, [text, currentIndex]);
 
