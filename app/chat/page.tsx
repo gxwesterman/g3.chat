@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { db } from '@/lib/instant';
 import ChatForm from '@/components/ChatForm';
@@ -28,8 +28,8 @@ export default function Page() {
 
   return (
     <div className="relative flex-1 overflow-hidden">
-      <ChatForm messages={data.messages} setOutput={setOutput} />
-      <div className="scrollbar scrollbar-w-2 scrollbar-thumb-gray-700 scrollbar-track-transparent hover:scrollbar-thumb-gray-600 h-[100dvh] overflow-y-auto pb-[140px]">
+      <ChatForm messages={data.messages} output={output} setOutput={setOutput} />
+      <div className="scrollbar scrollbar-w-2 scrollbar-thumb-gray-700 scrollbar-track-transparent hover:scrollbar-thumb-gray-600 h-[100dvh] overflow-y-auto">
         <div className="mx-auto flex w-full max-w-3xl flex-col space-y-12 p-4 pb-8">
           {data.messages.map((message) => (
               <div key={message.id}>
@@ -44,7 +44,7 @@ export default function Page() {
                       )
                   :
                       (
-                          <div className="flex justify-start overflow-x-hidden chat-content">
+                          <div className="flex justify-start chat-content">
                               <div className="group relative w-full max-w-full break-words">
                                   <div className="space-y-4 prose prose-neutral prose-invert max-w-none prose-pre:m-0 prose-pre:bg-transparent prose-pre:p-0">
                                     <ReactMarkdown remarkPlugins={[remarkGfm]}>{message.text}</ReactMarkdown>
@@ -55,7 +55,7 @@ export default function Page() {
                   }
               </div>
           ))}
-          <div className="flex justify-start overflow-x-hidden chat-content">
+          <div className="flex justify-start chat-content">
               <div className="group relative w-full max-w-full break-words">
                   <div className="space-y-4 prose prose-neutral prose-invert max-w-none prose-pre:m-0 prose-pre:bg-transparent prose-pre:p-0">
                     <ReactMarkdown remarkPlugins={[remarkGfm]}>{output}</ReactMarkdown>

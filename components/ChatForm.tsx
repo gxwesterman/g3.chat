@@ -30,28 +30,30 @@ function startChat(id: string) {
 
 export default function ChatForm({
   messages,
+  output,
   setOutput
 }: {
-  messages: { [x: string]: any; id: string; }[]
+  messages: { [x: string]: any; id: string; }[],
+  output: string,
   setOutput: (output: string) => void
 }) {
   const pathname = usePathname();
   var pageChatId = (pathname.split('/').pop() || '');
   const [input, setInput] = useState('');
-  // const [text, setText] = useState('');
-  // const [currentIndex, setCurrentIndex] = useState(0);
+  const [text, setText] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  // useEffect(() => {
-  //   if (text.length > 0) {
-  //     const timer = setInterval(() => {
-  //       if (currentIndex < text.length) {
-  //         setOutput(output + text[currentIndex]);
-  //         setCurrentIndex(currentIndex + 1);
-  //       }
-  //     }, 0.000001);
-  //     return () => clearInterval(timer);
-  //   }
-  // }, [text, currentIndex]);
+  useEffect(() => {
+    if (text.length > 0) {
+      const timer = setInterval(() => {
+        if (currentIndex < text.length) {
+          setOutput(output + text[currentIndex]);
+          setCurrentIndex(currentIndex + 1);
+        }
+      }, 0.000001);
+      return () => clearInterval(timer);
+    }
+  }, [text, currentIndex]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (
@@ -99,12 +101,12 @@ export default function ChatForm({
             const { value, done: readerDone } = await reader.read();
             done = readerDone;
             result += decoder.decode(value, { stream: true });
-            setOutput(result);
+            setText(result);
           }
   
           setOutput('');
-          // setText('');
-          // setCurrentIndex(0);
+          setText('');
+          setCurrentIndex(0);
           addMessage(result, 'answer', pageChatId);
         }
 
