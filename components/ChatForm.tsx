@@ -28,25 +28,30 @@ function startChat(id: string) {
   return newChat;
 }
 
-export default function ChatForm({ output, setOutput } : { output: string, setOutput: (output: string) => void }) {
-
+export default function ChatForm({
+  messages,
+  setOutput
+}: {
+  messages: { [x: string]: any; id: string; }[]
+  setOutput: (output: string) => void
+}) {
   const pathname = usePathname();
   var pageChatId = (pathname.split('/').pop() || '');
   const [input, setInput] = useState('');
-  const [text, setText] = useState('');
-  const [currentIndex, setCurrentIndex] = useState(0);
+  // const [text, setText] = useState('');
+  // const [currentIndex, setCurrentIndex] = useState(0);
 
-  useEffect(() => {
-    if (text.length > 0) {
-      const timer = setInterval(() => {
-        if (currentIndex < text.length) {
-          setOutput(output + text[currentIndex]);
-          setCurrentIndex(currentIndex + 1);
-        }
-      }, 0.000001);
-      return () => clearInterval(timer);
-    }
-  }, [text, currentIndex]);
+  // useEffect(() => {
+  //   if (text.length > 0) {
+  //     const timer = setInterval(() => {
+  //       if (currentIndex < text.length) {
+  //         setOutput(output + text[currentIndex]);
+  //         setCurrentIndex(currentIndex + 1);
+  //       }
+  //     }, 0.000001);
+  //     return () => clearInterval(timer);
+  //   }
+  // }, [text, currentIndex]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (
@@ -74,6 +79,7 @@ export default function ChatForm({ output, setOutput } : { output: string, setOu
           },
           body: JSON.stringify({
             message: input,
+            messages: messages,
             chatId: pageChatId,
           }),
         });
@@ -93,12 +99,12 @@ export default function ChatForm({ output, setOutput } : { output: string, setOu
             const { value, done: readerDone } = await reader.read();
             done = readerDone;
             result += decoder.decode(value, { stream: true });
-            setText(result);
+            setOutput(result);
           }
   
           setOutput('');
-          setText('');
-          setCurrentIndex(0);
+          // setText('');
+          // setCurrentIndex(0);
           addMessage(result, 'answer', pageChatId);
         }
 
