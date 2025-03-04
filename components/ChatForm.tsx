@@ -101,6 +101,7 @@ export default function ChatForm({
     }
     addMessage(input, 'question', pageChatId);
     setInput('');
+    setStreamingDone(false);
     try {
         const response = await fetch('/api/chat', {
           method: 'POST',
