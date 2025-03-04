@@ -29,7 +29,7 @@ export default function Page() {
   return (
     <div className="relative flex-1 overflow-hidden">
       <ChatForm messages={data.messages} output={output} setOutput={setOutput} />
-      <div className="scrollbar scrollbar-w-2 scrollbar-thumb-gray-700 scrollbar-track-transparent hover:scrollbar-thumb-gray-600 h-[100dvh] overflow-y-auto">
+      <div className="scrollbar scrollbar-w-2 scrollbar-thumb-gray-700 scrollbar-track-transparent hover:scrollbar-thumb-gray-600 h-[100dvh] overflow-y-auto pb-[140px]">
         <div className="mx-auto flex w-full max-w-3xl flex-col space-y-12 p-4 pb-8">
           {data.messages.map((message) => (
               <div key={message.id}>
