@@ -1,30 +1,57 @@
-// import { openai } from '@ai-sdk/openai';
-// import { streamText } from 'ai';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-// Allow streaming responses up to 30 seconds
-export const maxDuration = 30;
+export async function POST(req: Request) {
+  const { message, messages } = await req.json();
 
-export async function POST(formData: FormData) {
-  console.log(formData);
-  return formData;
-  // const { messages } = await req.json();
+  const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENERATIVE_AI_API_KEY || '');
+  const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+  const chat = model.startChat({
+    history: messages.map((message: { type: string, text: string }) => {
+      return {
+        role: message.type === 'question' ? 'user' : 'model',
+        parts: [{ text: message.text }]
+      }
+    })
+  })
+    
+  const result = await chat.sendMessageStream(message);
+  const stream = new ReadableStream({
+    async start(controller) {
+      for await (const chunk of result.stream) {
+        const chunkText = await chunk.text();
+        controller.enqueue(chunkText);
+      }
+      controller.close();
+    },
+  });
 
-  // const genAI = new GoogleGenerativeAI("GEMINI_API_KEY");
-  // const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  return new Response(stream, {
+    headers: {
+      'Content-Type': 'text/plain',
+      'Transfer-Encoding': 'chunked',
+    },
+  });
+}
 
-  // const result = await model.generateContentStream(messages);
+// import { streamText } from 'ai';
+// import { google } from "@ai-sdk/google";
 
-  // for await (const chunk of result.stream) {
-  //   const chunkText = chunk.text();
-  //   console.log(chunkText);
-  //   process.stdout.write(chunkText);
-  // }
+// // Allow streaming responses up to 30 seconds
+// export const maxDuration = 30;
+
+// export async function POST(req: Request) {
+//   const { messages } = await req.json();
+//   const coreMessages = messages.map((message: {type: string, text: string}) => {
+//     return {
+//       role: message.type === 'question' ? 'user' : 'system',
+//       content: message.text
+//     }
+//   })
 
 //   const result = streamText({
-//     model: openai('gpt-4o'),
-//     messages,
+//     model: google('gemini-2.0-flash'),
+//     messages: coreMessages,
 //   });
 
-//   return result.toDataStreamResponse();
-}
+//   return result.toDataStreamResponse({});
+// }
