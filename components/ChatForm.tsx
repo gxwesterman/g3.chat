@@ -3,7 +3,7 @@
 import { db } from '@/lib/instant';
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { id } from '@instantdb/react';
 import { usePathname } from 'next/navigation';
 import { Send } from 'lucide-react';
@@ -42,17 +42,45 @@ export default function ChatForm({
   const [input, setInput] = useState('');
   const [text, setText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [streamingDone, setStreamingDone] = useState(false);
+
+  const requestRef = useRef<number>(null);
+
+  const streamText = () => {
+    if (currentIndex < text.length) {
+      const bufferLength = 7;
+      let buffer = output;
+      let i = 0;
+      for (i; (i + currentIndex) < text.length && i < bufferLength; i++) {
+        buffer += text[currentIndex + i];
+      }
+      setOutput(buffer);
+      setCurrentIndex(currentIndex + i);
+    } else {
+      requestRef.current && cancelAnimationFrame(requestRef.current);
+    }
+  };
 
   useEffect(() => {
-    if (text.length > 0) {
-      const timer = setInterval(() => {
-        if (currentIndex < text.length) {
-          setOutput(output + text[currentIndex]);
-          setCurrentIndex(currentIndex + 1);
-        }
-      }, 0.000001);
-      return () => clearInterval(timer);
-    }
+    if (text.length === 0) return;
+    if (streamingDone && currentIndex === text.length) {
+      setOutput('');
+      setText('');
+      setCurrentIndex(0);
+      addMessage(text, 'answer', pageChatId);
+    };
+
+    const startStreaming = () => {
+      requestRef.current = requestAnimationFrame(() => {
+        streamText();
+      });
+    };
+
+    startStreaming();
+
+    return () => {
+      requestRef.current && cancelAnimationFrame(requestRef.current);
+    };
   }, [text, currentIndex]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -96,23 +124,17 @@ export default function ChatForm({
           let done = false;
           let result = '';
             
-          // Continuously read from the stream
           while (!done) {
             const { value, done: readerDone } = await reader.read();
             done = readerDone;
             result += decoder.decode(value, { stream: true });
             setText(result);
           }
-  
-          setOutput('');
-          setText('');
-          setCurrentIndex(0);
-          addMessage(result, 'answer', pageChatId);
+          setStreamingDone(true);
         }
 
       } catch (error) {
         console.error('Error:', error);
-        // Handle error appropriately
       }
   }
 
