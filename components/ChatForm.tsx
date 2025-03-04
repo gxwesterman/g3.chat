@@ -143,7 +143,7 @@ export default function ChatForm({
     <div className="absolute bottom-0 w-full pr-2">
       <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-col text-center">
         <form
-          className="flex items-center gap-2 bg-secondary rounded"
+          className="flex items-center gap-2 bg-background shadow-sm shadow-background rounded"
           onSubmit={handleSubmit}
         >
           <Textarea

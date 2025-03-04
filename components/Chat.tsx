@@ -30,19 +30,19 @@ export default function Chat() {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <main className="relative flex w-full flex-1 flex-col h-[100dvh]">
+      <main className="relative flex w-full flex-1 flex-col h-[100dvh] bg-secondary">
         <SidebarTrigger />
         <div className="relative flex-1 overflow-hidden">
           <ChatForm messages={data.messages} output={output} setOutput={setOutput} />
           <div className="scrollbar scrollbar-w-2 scrollbar-thumb-gray-700 scrollbar-track-transparent hover:scrollbar-thumb-gray-600 h-[100dvh] overflow-y-auto pb-[140px]">
-            <div className="mx-auto flex w-full max-w-3xl flex-col space-y-12 p-4 pb-8">
+            <div className="mx-auto flex w-full max-w-3xl flex-col space-y-12 p-4 pb-8 text-foreground/80">
               {data.messages.map((message) => (
                   <div key={message.id}>
                       {
                           message.type === 'question' ? 
                           (
                               <div className="flex justify-end">
-                                  <div className="group relative inline-block max-w-[80%] break-words rounded bg-secondary p-4 text-left">
+                                  <div className="group relative inline-block max-w-[80%] break-words rounded bg-background shadow-sm shadow-background p-4 text-left">
                                       <div>{message.text}</div>
                                   </div>
                               </div>
