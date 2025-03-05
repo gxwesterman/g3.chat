@@ -43,6 +43,7 @@ export default function ChatForm({
   const [text, setText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [streamingDone, setStreamingDone] = useState(false);
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   const requestRef = useRef<number>(null);
 
@@ -139,27 +140,38 @@ export default function ChatForm({
       }
   }
 
+  const handleChange = (input: string) => {
+    setInput(input);
+    if (textAreaRef.current) {
+      textAreaRef.current.style.height = 'auto';
+      textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
+    }
+  }
+
   return (
     <div className="absolute bottom-0 w-full pr-2">
       <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-col text-center">
         <form
-          className="flex items-center gap-2 bg-background shadow-sm shadow-background rounded"
+          className="flex items-center flex-col bg-background shadow-sm shadow-secondary rounded py-2"
           onSubmit={handleSubmit}
         >
           <Textarea
+            ref={textAreaRef}
             name="message"
-            className="grow resize-none border-none outline-none text-base shadow-none focus-visible:ring-0"
+            className="grow resize-none border-none outline-none text-base shadow-none focus-visible:ring-0 max-h-80"
             placeholder="Type your message here..."
             onKeyDown={handleKeyDown}
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={(e) => handleChange(e.target.value)}
           />
-          <Button
-            className="mr-3"
-            type="submit"
-          >
-            <Send />
-          </Button>
+          <div className="w-full flex justify-end">
+            <Button
+              className="mr-3"
+              type="submit"
+            >
+              <Send />
+            </Button>
+          </div>
         </form>
       </div>
     </div>
