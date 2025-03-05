@@ -152,7 +152,7 @@ export default function ChatForm({
     <div className="absolute bottom-0 w-full pr-2">
       <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-col text-center">
         <form
-          className="flex items-center flex-col bg-background shadow-sm shadow-secondary rounded py-2"
+          className="flex items-center flex-col bg-background shadow-[0px_0px_5px_2px] shadow-secondary rounded py-2"
           onSubmit={handleSubmit}
         >
           <Textarea
