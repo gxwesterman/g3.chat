@@ -1,3 +1,5 @@
+"use client"
+
 import { Sidebar, SidebarContent, SidebarHeader, SidebarMenu, SidebarMenuItem, SidebarMenuButton } from "@/components/ui/sidebar"
 import { db } from '@/lib/instant';
 import { usePathname } from "next/navigation";

@@ -1,7 +1,5 @@
 'use client'
 
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
-import { AppSidebar } from "@/components/app-sidebar"
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { db } from "@/lib/instant";
@@ -28,10 +26,7 @@ export default function Chat() {
   if (error) return <div>Error fetching data: {error.message}</div>;
 
   return (
-    <SidebarProvider>
-      <AppSidebar />
-      <main className="relative flex w-full flex-1 flex-col h-[100dvh] bg-secondary">
-        <SidebarTrigger />
+    
         <div className="relative flex-1 overflow-hidden">
           <ChatForm messages={data.messages} output={output} setOutput={setOutput} />
           <div className="scrollbar scrollbar-w-2 scrollbar-thumb-gray-700 scrollbar-track-transparent hover:scrollbar-thumb-gray-600 h-[100dvh] overflow-y-auto pb-[140px]">
@@ -70,7 +65,6 @@ export default function Chat() {
             </div>
           </div>
         </div>
-      </main>
-    </SidebarProvider>
+    
   );
 }
