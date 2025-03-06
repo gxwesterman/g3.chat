@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import { User } from "@instantdb/react";
 import { db } from "@/lib/instant";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 function App() {
   const { isLoading, user, error } = db.useAuth();
@@ -27,12 +29,12 @@ function Main({ user }: { user: User }) {
   return (
     <div className="p-4 space-y-4">
       <h1 className="text-2xl font-bold">Hello {user.email}!</h1>
-      <button
+      <Button
         onClick={() => db.auth.signOut()}
         className="px-3 py-1 bg-blue-600 text-white font-bold hover:bg-blue-700"
       >
         Sign out
-      </button>
+      </Button>
     </div>
   );
 }
@@ -72,24 +74,22 @@ function EmailStep({ onSendEmail }: { onSendEmail: (email: string) => void }) {
       className="flex flex-col space-y-4"
     >
       <h2 className="text-xl font-bold">Let's log you in</h2>
-      <p className="text-gray-700">
+      <p className="text-foreground/70">
         Enter your email, and we'll send you a verification code. We'll create
         an account for you too if you don't already have one.
       </p>
-      <input
+      <Input
         ref={inputRef}
         type="email"
-        className="border border-gray-300 px-3 py-1  w-full"
         placeholder="Enter your email"
         required
         autoFocus
       />
-      <button
+      <Button
         type="submit"
-        className="px-3 py-1 bg-blue-600 text-white font-bold hover:bg-blue-700 w-full"
       >
         Send Code
-      </button>
+      </Button>
     </form>
   );
 }
@@ -117,20 +117,19 @@ function CodeStep({ sentEmail }: { sentEmail: string }) {
         We sent an email to <strong>{sentEmail}</strong>. Check your email, and
         paste the code you see.
       </p>
-      <input
+      <Input
         ref={inputRef}
         type="text"
-        className="border border-gray-300 px-3 py-1  w-full"
         placeholder="123456..."
         required
         autoFocus
       />
-      <button
+      <Button
         type="submit"
         className="px-3 py-1 bg-blue-600 text-white font-bold hover:bg-blue-700 w-full"
       >
         Verify Code
-      </button>
+      </Button>
     </form>
   );
 }
