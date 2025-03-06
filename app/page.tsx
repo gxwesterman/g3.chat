@@ -73,10 +73,10 @@ function EmailStep({ onSendEmail }: { onSendEmail: (email: string) => void }) {
       onSubmit={handleSubmit}
       className="flex flex-col space-y-4"
     >
-      <h2 className="text-xl font-bold">Let's log you in</h2>
+      <h2 className="text-xl font-bold">Let&apos;s log you in</h2>
       <p className="text-foreground/70">
-        Enter your email, and we'll send you a verification code. We'll create
-        an account for you too if you don't already have one.
+        Enter your email, and we&apos;ll send you a verification code. We&apos;ll create
+        an account for you too if you don&apos;t already have one.
       </p>
       <Input
         ref={inputRef}

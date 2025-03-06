@@ -33,12 +33,12 @@ export default function ChatForm({
   output,
   setOutput
 }: {
-  messages: { [x: string]: any; id: string; }[],
+  messages: { [x: string]: string; id: string; }[],
   output: string,
   setOutput: (output: string) => void
 }) {
   const pathname = usePathname();
-  var pageChatId = (pathname.split('/').pop() || '');
+  let pageChatId = (pathname.split('/').pop() || '');
   const [input, setInput] = useState('');
   const [text, setText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -58,7 +58,9 @@ export default function ChatForm({
       setOutput(buffer);
       setCurrentIndex(currentIndex + i);
     } else {
-      requestRef.current && cancelAnimationFrame(requestRef.current);
+      if (requestRef.current) {
+        cancelAnimationFrame(requestRef.current);
+      }
     }
   };
 
@@ -80,9 +82,11 @@ export default function ChatForm({
     startStreaming();
 
     return () => {
-      requestRef.current && cancelAnimationFrame(requestRef.current);
+      if (requestRef.current) {
+        cancelAnimationFrame(requestRef.current);
+      }
     };
-  }, [text, currentIndex]);
+  }, [text, currentIndex, pageChatId, setOutput, streamText, streamingDone]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (
