@@ -153,7 +153,7 @@ export default function ChatForm({
   }
 
   return (
-    <div className="absolute bottom-0 w-full pr-2">
+    <div className="absolute bottom-0 w-full">
       <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-col text-center">
         <form
           className="flex items-center flex-col bg-background shadow-[0px_0px_5px_2px] shadow-secondary rounded py-2"
