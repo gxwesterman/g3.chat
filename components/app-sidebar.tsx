@@ -37,10 +37,10 @@ export function AppSidebar() {
         <SidebarMenu className="px-3">
           {data.chats.map((chat) => (
             <SidebarMenuItem key={chat.id}>
-              <SidebarMenuButton isActive={activeChatId === chat.id} asChild className="py-5">
+              <SidebarMenuButton isActive={activeChatId === chat.id} asChild className="py-5 group/item">
                 <a onClick={() => window.history.pushState({}, '', `/chat/${chat.id}`)} key={chat.id} className="hover:cursor-pointer flex items-center justify-between">
                   <div>New Chat</div>
-                  <X onClick={(e) => deleteChat(e, chat.id)} />
+                  <X className="opacity-0 group-hover/item:opacity-100" onClick={(e) => deleteChat(e, chat.id)} />
                 </a>
               </SidebarMenuButton>
             </SidebarMenuItem>
