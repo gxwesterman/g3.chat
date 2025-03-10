@@ -15,14 +15,21 @@ export function AppSidebar() {
     setActiveChatId(pathname.split('/').pop() || '');
   }, [pathname]);
 
-  const { isLoading, error, data } = db.useQuery({ chats: {}, messages: {} });
+  const chatsQuery = {
+    chats: {
+      messages: {}
+    },
+  };
+
+  const { isLoading, error, data } = db.useQuery(chatsQuery);
   if (isLoading) return <div></div>;
   if (error) return <div>Error fetching data: {error.message}</div>;
 
   const deleteChat = (e: React.MouseEvent<SVGSVGElement, MouseEvent>, chatId: string) => {
     e.stopPropagation();
     db.transact(db.tx.chats[chatId].delete());
-    db.transact(data.messages.filter((message) => message.chatId === chatId).map((m) => db.tx.messages[m.id].delete()));
+    const chat = data.chats.find(chat => chat.id === chatId);
+    chat && db.transact(chat.messages.map((m) => db.tx.messages[m.id].delete()));
     if (activeChatId === chatId) {
       window.history.pushState({}, '', '/chat');
     }
