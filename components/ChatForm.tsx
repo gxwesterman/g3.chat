@@ -14,16 +14,13 @@ function addMessage(text: string, type: string, chatId: string) {
       chatId,
       text,
       type,
-      createdAt: new Date(),
     }).link({ chats: chatId }),
   );
 }
 
 function startChat(id: string) {
   const newChat = db.transact(
-    db.tx.chats[id].update({
-      createdAt: new Date(),
-    }),
+    db.tx.chats[id].update({}),
   );
   return newChat;
 }
