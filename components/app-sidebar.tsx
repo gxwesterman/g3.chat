@@ -47,7 +47,7 @@ export function AppSidebar({ chats }: { chats: Chat[] }) {
           {chats.map((chat) => (
             <SidebarMenuItem key={chat.id}>
               <SidebarMenuButton isActive={activeChatId === chat.id} asChild className="py-5 group/item">
-                <a onClick={() => window.history.pushState({}, '', `/chat/${chat.id}`)} key={chat.id} className="hover:cursor-pointer flex items-center justify-between">
+                <a onClick={() => window.history.pushState({}, '', `/chat/${chat.id}`)} key={chat.id} className="hover:cursor-pointer hover:bg-sidebar-accent/40 flex items-center justify-between">
                   <div>New Chat</div>
                   <X className="opacity-0 group-hover/item:opacity-100" onClick={(e) => deleteChat(e, chat.id)} />
                 </a>
