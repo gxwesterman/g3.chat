@@ -37,17 +37,22 @@ export function AppSidebar({ chats }: { chats: Chat[] }) {
     }
   }
 
+  const handleClick = (chatId: string) => {
+    setActiveChatId(chatId);
+    chatId ? window.history.pushState({}, '', `/chat/${chatId}`) : window.history.pushState({}, '', '/chat')
+  }
+
   return (
     <Sidebar>
       <SidebarContent>
         <SidebarHeader className="pt-5 px-3">
-          <a className="hover:cursor-pointer" onClick={() => window.history.pushState({}, '', '/chat')}>G3 Chat</a>
+          <a className="hover:cursor-pointer" onMouseDown={() => handleClick('')}>G3 Chat</a>
         </SidebarHeader>
         <SidebarMenu className="px-3">
           {chats.map((chat) => (
             <SidebarMenuItem key={chat.id}>
               <SidebarMenuButton isActive={activeChatId === chat.id} asChild className="py-5 group/item">
-                <a onClick={() => window.history.pushState({}, '', `/chat/${chat.id}`)} key={chat.id} className="hover:cursor-pointer hover:bg-sidebar-accent/40 flex items-center justify-between">
+                <a onMouseDown={() => handleClick(chat.id)} key={chat.id} className="hover:cursor-pointer hover:bg-sidebar-accent/40 flex items-center justify-between">
                   <div>New Chat</div>
                   <X className="opacity-0 group-hover/item:opacity-100" onClick={(e) => deleteChat(e, chat.id)} />
                 </a>
