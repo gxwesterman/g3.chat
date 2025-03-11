@@ -1,5 +1,3 @@
-"use client"
-
 import { Sidebar, SidebarContent, SidebarHeader, SidebarMenu, SidebarMenuItem, SidebarMenuButton } from "@/components/ui/sidebar"
 import { db } from '@/lib/instant';
 import { usePathname } from "next/navigation";
@@ -39,7 +37,11 @@ export function AppSidebar({ chats }: { chats: Chat[] }) {
 
   const handleClick = (chatId: string) => {
     setActiveChatId(chatId);
-    chatId ? window.history.pushState({}, '', `/chat/${chatId}`) : window.history.pushState({}, '', '/chat')
+    if (chatId) {
+      window.history.pushState({}, '', `/chat/${chatId}`);
+    } else {
+      window.history.pushState({}, '', '/chat');
+    }
   }
 
   return (
