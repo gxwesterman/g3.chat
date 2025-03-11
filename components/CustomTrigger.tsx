@@ -1,15 +1,12 @@
 import { useSidebar } from "@/components/ui/sidebar"
 import { cn } from "@/lib/utils";
 import { ChevronLeft } from 'lucide-react';
-import { useState } from "react";
 
 export function CustomTrigger() {
-  const { toggleSidebar } = useSidebar()
-  const [open, setOpen] = useState(true);
+  const { toggleSidebar, open } = useSidebar();
 
   const handleClick = () => {
     toggleSidebar();
-    setOpen(!open);
   }
  
   return (
