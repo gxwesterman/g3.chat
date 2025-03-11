@@ -1,6 +1,7 @@
 'use client'
 
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import { SidebarProvider } from "@/components/ui/sidebar"
+import { CustomTrigger } from "@/components/CustomTrigger";
 import { AppSidebar } from "@/components/app-sidebar"
 import { db } from '@/lib/instant'
 import { usePathname } from "next/navigation"
@@ -28,7 +29,7 @@ export default function ChatLayout() {
     <SidebarProvider>
       <AppSidebar chats={data.chats} />
       <main className="relative flex w-full flex-1 flex-col h-[100dvh] bg-secondary">
-        <SidebarTrigger />
+        <CustomTrigger />
         <Chat messages={messages} />
       </main>
     </SidebarProvider>
