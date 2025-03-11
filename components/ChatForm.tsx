@@ -39,7 +39,7 @@ export default function ChatForm({
   const [input, setInput] = useState('');
   const [text, setText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [streamingDone, setStreamingDone] = useState(false);
+  const [streamingDone, setStreamingDone] = useState(true);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   const requestRef = useRef<number>(null);
