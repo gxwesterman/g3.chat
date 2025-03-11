@@ -44,24 +44,24 @@ export default function ChatForm({
 
   const requestRef = useRef<number>(null);
 
-  const streamText = () => {
-    if (currentIndex < text.length) {
-      const bufferLength = 7;
-      let buffer = output;
-      let i = 0;
-      for (i; (i + currentIndex) < text.length && i < bufferLength; i++) {
-        buffer += text[currentIndex + i];
-      }
-      setOutput(buffer);
-      setCurrentIndex(currentIndex + i);
-    } else {
-      if (requestRef.current) {
-        cancelAnimationFrame(requestRef.current);
-      }
-    }
-  };
-
   useEffect(() => {
+    const streamText = () => {
+      if (currentIndex < text.length) {
+        const bufferLength = 7;
+        let buffer = output;
+        let i = 0;
+        for (i; (i + currentIndex) < text.length && i < bufferLength; i++) {
+          buffer += text[currentIndex + i];
+        }
+        setOutput(buffer);
+        setCurrentIndex(currentIndex + i);
+      } else {
+        if (requestRef.current) {
+          cancelAnimationFrame(requestRef.current);
+        }
+      }
+    };
+
     if (text.length === 0) return;
     if (streamingDone && currentIndex === text.length) {
       setOutput('');
@@ -83,7 +83,7 @@ export default function ChatForm({
         cancelAnimationFrame(requestRef.current);
       }
     };
-  }, [text, currentIndex, pageChatId, setOutput, streamText, streamingDone]);
+  }, [text, currentIndex, pageChatId, setOutput, streamingDone, output]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (
