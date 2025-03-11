@@ -96,6 +96,9 @@ export default function ChatForm({
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!streamingDone || input === '') {
+      return;
+    }
     if (textAreaRef.current) {
       textAreaRef.current.style.height = 'auto';
     }
