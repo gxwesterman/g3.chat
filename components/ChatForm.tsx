@@ -96,6 +96,9 @@ export default function ChatForm({
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (textAreaRef.current) {
+      textAreaRef.current.style.height = 'auto';
+    }
     if (pageChatId === 'chat') {
         pageChatId = id();
         startChat(pageChatId);
