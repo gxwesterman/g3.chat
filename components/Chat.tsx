@@ -1,9 +1,10 @@
 'use client'
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import ChatForm from '@/components/ChatForm';
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm";
+import { usePathname } from "next/navigation";
 
 type Message = {
   id: string;
@@ -14,7 +15,14 @@ type Message = {
 
 export default function Chat({ messages }: { messages: Message[] }) {
 
+  const pathName = usePathname();
   const [output, setOutput] = useState('');
+  const endRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (endRef.current) {
+      endRef.current.scrollIntoView({ behavior: "instant" });
+    }
+  }, [pathName]);
 
   return (
     <div className="relative flex-1 overflow-hidden">
@@ -52,6 +60,7 @@ export default function Chat({ messages }: { messages: Message[] }) {
                   </div>
               </div>
           </div>
+          <div ref={endRef}></div>
         </div>
       </div>
     </div>
