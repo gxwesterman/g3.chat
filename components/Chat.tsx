@@ -2,9 +2,8 @@
 
 import { useState, useRef, useEffect } from "react";
 import ChatForm from '@/components/ChatForm';
-import ReactMarkdown from "react-markdown"
-import remarkGfm from "remark-gfm";
 import { usePathname } from "next/navigation";
+import { MemoizedMarkdown } from '@/components/memoized-markdown';
 
 type Message = {
   id: string;
@@ -45,7 +44,7 @@ export default function Chat({ messages }: { messages: Message[] }) {
                         <div className="flex justify-start chat-content">
                             <div className="group relative w-full max-w-full break-words">
                                 <div className="space-y-4 prose prose-neutral prose-invert max-w-none prose-pre:m-0 prose-pre:bg-transparent prose-pre:p-0">
-                                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{message.text}</ReactMarkdown>
+                                  <MemoizedMarkdown id={message.id} content={message.text} />
                                 </div>
                             </div>
                         </div>
@@ -56,7 +55,7 @@ export default function Chat({ messages }: { messages: Message[] }) {
           <div className="flex justify-start chat-content">
               <div className="group relative w-full max-w-full break-words">
                   <div className="space-y-4 prose prose-neutral prose-invert max-w-none prose-pre:m-0 prose-pre:bg-transparent prose-pre:p-0">
-                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{output}</ReactMarkdown>
+                    <MemoizedMarkdown id={`${Date.now()}`} content={output} />
                   </div>
               </div>
           </div>
