@@ -3,6 +3,7 @@ import { db } from '@/lib/instant';
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { X } from 'lucide-react';
+import { Message } from '@/lib/types';
 
 type Chat =  {
     id: string;
@@ -14,7 +15,7 @@ type Chat =  {
     }[];
 };
  
-export function AppSidebar({ chats }: { chats: Chat[] }) {
+export function AppSidebar({ chats, setOldMessages }: { chats: Chat[], setOldMessages: (oldMessages: Message[]) => void }) {
 
   const pathname = usePathname();
   const [activeChatId, setActiveChatId] = useState(pathname.split('/').pop() || '');
@@ -37,6 +38,9 @@ export function AppSidebar({ chats }: { chats: Chat[] }) {
 
   const handleClick = (chatId: string) => {
     setActiveChatId(chatId);
+    if (chatId !== activeChatId) {
+      setOldMessages([]);
+    }
     if (chatId) {
       window.history.pushState({}, '', `/chat/${chatId}`);
     } else {

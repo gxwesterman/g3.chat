@@ -6,11 +6,14 @@ import { AppSidebar } from "@/components/app-sidebar"
 import { db } from '@/lib/instant'
 import { usePathname } from "next/navigation"
 import Chat from '@/components/Chat';
+import { useState } from "react";
+import { Message } from '@/lib/types';
 
 export default function ChatLayout() {
 
   const pathname = usePathname();
   const pageChatId = pathname.split('/').pop() || '';
+  const [oldMessages, setOldMessages] = useState<Message[]>([]);
 
   const chatsQuery = {
     chats: {
@@ -27,10 +30,10 @@ export default function ChatLayout() {
 
   return (
     <SidebarProvider>
-      <AppSidebar chats={data.chats} />
+      <AppSidebar chats={data.chats} setOldMessages={setOldMessages} />
       <main className="relative flex w-full flex-1 flex-col h-[100dvh] bg-secondary">
         <CustomTrigger />
-        <Chat messages={messages} />
+        <Chat messages={messages} oldMessages={oldMessages} setOldMessages={setOldMessages} />
       </main>
     </SidebarProvider>
   );
