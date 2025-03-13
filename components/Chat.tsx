@@ -15,7 +15,7 @@ export default function Chat({ messages, oldMessages, setOldMessages }: { messag
   useEffect(() => {
     setOldMessages(messages.slice(0, messages.length - 10));
     if (endRef.current) {
-      endRef.current.scrollIntoView({ behavior: 'instant'});
+      endRef.current.scrollIntoView({ behavior: 'instant' });
     }
   }, [pathname, setOldMessages]);
 
