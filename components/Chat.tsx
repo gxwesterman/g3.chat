@@ -20,7 +20,7 @@ export default function Chat({ messages, oldMessages, setOldMessages }: { messag
   }, [pathname, setOldMessages]);
 
   return (
-    <div className="relative flex-1 overflow-hidden">
+    <div className="relative flex-1 overflow-hidden" key={pathname}>
       <ChatForm messages={messages} output={output} setOutput={setOutput} />
       <div className="scrollbar scrollbar-w-2 scrollbar-thumb-gray-700 scrollbar-track-transparent hover:scrollbar-thumb-gray-600 h-[100dvh] overflow-y-auto overflow-x-hidden pb-[140px]">
         <div className="mx-auto flex w-full max-w-3xl flex-col space-y-12 p-4 pb-8 text-foreground/80">
