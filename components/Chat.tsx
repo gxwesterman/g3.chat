@@ -11,14 +11,13 @@ export default function Chat({ messages, oldMessages, setOldMessages }: { messag
   const pathname = usePathname();
   const [output, setOutput] = useState('');
   const endRef = useRef<HTMLDivElement>(null);
-  const messageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setOldMessages(messages.slice(0, messages.length - 10));
     if (endRef.current) {
-      endRef.current.scrollIntoView({ behavior: "instant" });
+      endRef.current.scrollIntoView({ behavior: 'instant'});
     }
-  }, [pathname]);
+  }, [pathname, setOldMessages]);
 
   return (
     <div className="relative flex-1 overflow-hidden">
@@ -52,7 +51,7 @@ export default function Chat({ messages, oldMessages, setOldMessages }: { messag
             ))
           }
           {messages.slice(-10).map((message) => (
-            <div key={message.id} ref={messageRef}>
+            <div key={message.id}>
                 {
                     message.type === 'question' ?
                     (
