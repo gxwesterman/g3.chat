@@ -17,12 +17,12 @@ export default function Chat({ messages, oldMessages, setOldMessages }: { messag
     if (endRef.current) {
       endRef.current.scrollIntoView({ behavior: 'instant' });
     }
-  }, [pathname, setOldMessages]);
+  }, [pathname]);
 
   return (
-    <div className="relative flex-1 overflow-hidden" key={pathname}>
+    <div className="relative flex-1 overflow-hidden">
       <ChatForm messages={messages} output={output} setOutput={setOutput} />
-      <div className="scrollbar scrollbar-w-2 scrollbar-thumb-gray-700 scrollbar-track-transparent hover:scrollbar-thumb-gray-600 h-[100dvh] overflow-y-auto overflow-x-hidden pb-[140px]">
+      <div key={pathname} className="scrollbar scrollbar-w-2 scrollbar-thumb-gray-700 scrollbar-track-transparent hover:scrollbar-thumb-gray-600 h-[100dvh] overflow-y-auto overflow-x-hidden pb-[140px]">
         <div className="mx-auto flex w-full max-w-3xl flex-col space-y-12 p-4 pb-8 text-foreground/80">
           {oldMessages.length !== 0 && 
             oldMessages.map((message) => (
