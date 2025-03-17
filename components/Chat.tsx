@@ -25,7 +25,7 @@ export default function Chat({ messages, oldMessages, setOldMessages }: { messag
       <ChatForm messages={messages} output={output} setOutput={setOutput} streamingId={streamingId} setStreamingId={setStreamingId} />
       <div key={pathname} className="scrollbar scrollbar-w-2 scrollbar-thumb-gray-700 scrollbar-track-transparent hover:scrollbar-thumb-gray-600 h-[100dvh] overflow-y-auto overflow-x-hidden pb-[140px]">
         <div className="mx-auto flex w-full max-w-3xl flex-col space-y-12 p-4 pb-8 text-foreground/80">
-          {oldMessages.length !== 0 && 
+          {oldMessages.length !== 0 &&
             oldMessages.map((message) => (
               <div key={message.id}>
                 {
