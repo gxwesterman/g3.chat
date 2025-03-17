@@ -37,8 +37,8 @@ export function AppSidebar({ chats, setOldMessages }: { chats: Chat[], setOldMes
   }
 
   const handleClick = (chatId: string) => {
-    setActiveChatId(chatId);
     if (chatId !== activeChatId) {
+      setActiveChatId(chatId);
       setOldMessages([]);
     }
     if (chatId) {

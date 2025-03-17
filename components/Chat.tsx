@@ -12,12 +12,24 @@ export default function Chat({ messages, oldMessages, setOldMessages }: { messag
   const [output, setOutput] = useState('');
   const endRef = useRef<HTMLDivElement>(null);
   const [streamingId, setStreamingId] = useState('');
+  const [clicks, setClicks] = useState(0);
 
   useEffect(() => {
-    setOldMessages(messages.slice(0, messages.length - 10));
+    if (clicks < 3) {
+      setOldMessages(messages.slice(0, messages.length - 10));
+    }
+  }, [clicks])
+
+  useEffect(() => {
     if (endRef.current) {
       endRef.current.scrollIntoView({ behavior: 'instant' });
     }
+    setClicks(clicks + 1);
+    const timer = setTimeout(() => {
+      setClicks(0);
+    }, 200);
+    return () => clearTimeout(timer);
+   
   }, [pathname]);
 
   return (
