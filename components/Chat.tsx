@@ -29,7 +29,6 @@ export default function Chat({ messages, oldMessages, setOldMessages }: { messag
       setClicks(0);
     }, 200);
     return () => clearTimeout(timer);
-   
   }, [pathname]);
 
   return (
