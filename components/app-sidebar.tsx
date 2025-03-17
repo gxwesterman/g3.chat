@@ -57,10 +57,10 @@ export function AppSidebar({ chats, setOldMessages }: { chats: Chat[], setOldMes
         <SidebarMenu className="px-3">
           {chats.map((chat) => (
             <SidebarMenuItem key={chat.id}>
-              <SidebarMenuButton isActive={activeChatId === chat.id} asChild className="py-5 group/item">
-                <a onMouseDown={() => handleClick(chat.id)} key={chat.id} className="hover:cursor-pointer hover:bg-sidebar-accent/40 flex items-center justify-between">
+              <SidebarMenuButton isActive={activeChatId === chat.id} asChild className="py-5 group/item relative">
+                <a onMouseDown={() => handleClick(chat.id)} key={chat.id} className="hover:cursor-default hover:bg-sidebar-accent/40 flex items-center justify-between">
                   <div>New Chat</div>
-                  <X className="opacity-0 group-hover/item:opacity-100" onClick={(e) => deleteChat(e, chat.id)} />
+                  <X className="absolute right-[-1rem] transition-all group-hover/item:right-2" onClick={(e) => deleteChat(e, chat.id)} />
                 </a>
               </SidebarMenuButton>
             </SidebarMenuItem>
