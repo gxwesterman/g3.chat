@@ -28,11 +28,15 @@ function startChat(id: string) {
 export default function ChatForm({
   messages,
   output,
-  setOutput
+  setOutput,
+  streamingId,
+  setStreamingId
 }: {
   messages: { [x: string]: string; id: string; }[],
   output: string,
-  setOutput: (output: string) => void
+  setOutput: (output: string) => void,
+  streamingId: string,
+  setStreamingId: (streamingId: string) => void
 }) {
   const pathname = usePathname();
   let pageChatId = (pathname.split('/').pop() || '');
@@ -41,7 +45,6 @@ export default function ChatForm({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [streamingDone, setStreamingDone] = useState(true);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
-
   const requestRef = useRef<number>(null);
 
   useEffect(() => {
@@ -64,10 +67,11 @@ export default function ChatForm({
 
     if (text.length === 0) return;
     if (streamingDone && currentIndex === text.length) {
+      addMessage(text, 'answer', streamingId);
       setOutput('');
       setText('');
+      setStreamingId('');
       setCurrentIndex(0);
-      addMessage(text, 'answer', pageChatId);
     };
 
     const startStreaming = () => {
@@ -107,6 +111,7 @@ export default function ChatForm({
         startChat(pageChatId);
         window.history.pushState({}, '', window.location.href + `/${pageChatId}`);
     }
+    setStreamingId(pageChatId);
     addMessage(input, 'question', pageChatId);
     setInput('');
     setStreamingDone(false);

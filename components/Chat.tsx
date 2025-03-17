@@ -11,6 +11,7 @@ export default function Chat({ messages, oldMessages, setOldMessages }: { messag
   const pathname = usePathname();
   const [output, setOutput] = useState('');
   const endRef = useRef<HTMLDivElement>(null);
+  const [streamingId, setStreamingId] = useState('');
 
   useEffect(() => {
     setOldMessages(messages.slice(0, messages.length - 10));
@@ -21,7 +22,7 @@ export default function Chat({ messages, oldMessages, setOldMessages }: { messag
 
   return (
     <div className="relative flex-1 overflow-hidden">
-      <ChatForm messages={messages} output={output} setOutput={setOutput} />
+      <ChatForm messages={messages} output={output} setOutput={setOutput} streamingId={streamingId} setStreamingId={setStreamingId} />
       <div key={pathname} className="scrollbar scrollbar-w-2 scrollbar-thumb-gray-700 scrollbar-track-transparent hover:scrollbar-thumb-gray-600 h-[100dvh] overflow-y-auto overflow-x-hidden pb-[140px]">
         <div className="mx-auto flex w-full max-w-3xl flex-col space-y-12 p-4 pb-8 text-foreground/80">
           {oldMessages.length !== 0 && 
@@ -74,13 +75,15 @@ export default function Chat({ messages, oldMessages, setOldMessages }: { messag
                 }
             </div>
           ))}
-          <div className="flex justify-start chat-content">
-              <div className="group relative w-full max-w-full break-words">
-                  <div className="space-y-4 prose prose-neutral prose-invert max-w-none prose-pre:m-0 prose-pre:bg-transparent prose-pre:p-0">
-                    <MemoizedMarkdown id={`${Date.now()}`} content={output} />
-                  </div>
-              </div>
-          </div>
+          {streamingId === pathname.split('/').pop() && (
+            <div className="flex justify-start chat-content">
+                <div className="group relative w-full max-w-full break-words">
+                    <div className="space-y-4 prose prose-neutral prose-invert max-w-none prose-pre:m-0 prose-pre:bg-transparent prose-pre:p-0">
+                      <MemoizedMarkdown id={`${Date.now()}`} content={output} />
+                    </div>
+                </div>
+            </div>
+          )}
           <div ref={endRef}></div>
         </div>
       </div>
