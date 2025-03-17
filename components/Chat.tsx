@@ -32,7 +32,7 @@ export default function Chat({ messages, oldMessages, setOldMessages }: { messag
                     message.type === 'question' ?
                     (
                         <div className="flex justify-end">
-                            <div className="group relative inline-block max-w-[80%] break-words rounded bg-background p-4 text-left">
+                            <div className="group relative inline-block max-w-[80%] break-words rounded-3xl bg-background p-4 text-left">
                                 <div>{message.text}</div>
                             </div>
                         </div>
@@ -57,7 +57,7 @@ export default function Chat({ messages, oldMessages, setOldMessages }: { messag
                     message.type === 'question' ?
                     (
                         <div className="flex justify-end">
-                            <div className="group relative inline-block max-w-[80%] break-words rounded bg-background p-4 text-left">
+                            <div className="group relative inline-block max-w-[80%] break-words rounded-3xl bg-background p-4 text-left">
                                 <div>{message.text}</div>
                             </div>
                         </div>
