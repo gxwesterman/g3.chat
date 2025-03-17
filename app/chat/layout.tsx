@@ -31,7 +31,7 @@ export default function ChatLayout() {
   return (
     <SidebarProvider>
       <AppSidebar chats={data.chats} setOldMessages={setOldMessages} />
-      <main className="relative flex w-full flex-1 flex-col h-[100dvh] bg-secondary">
+      <main className="relative flex w-full flex-1 flex-col h-[100dvh]">
         <CustomTrigger />
         <Chat messages={messages} oldMessages={oldMessages} setOldMessages={setOldMessages} />
       </main>

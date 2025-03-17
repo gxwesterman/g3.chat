@@ -167,7 +167,7 @@ export default function ChatForm({
     <div className="absolute bottom-0 w-full">
       <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-col text-center">
         <form
-          className="flex items-center flex-col bg-background shadow-[0px_0px_5px_2px] shadow-secondary rounded py-2"
+          className="flex items-center flex-col bg-secondary shadow-[0px_0px_5px_2px] shadow-background rounded-t-xl py-3"
           onSubmit={handleSubmit}
         >
           <Textarea
@@ -181,7 +181,7 @@ export default function ChatForm({
           />
           <div className="w-full flex justify-end">
             <Button
-              className="mr-3"
+              className="transition-colors shadow h-9 w-9 absolute bottom-3 right-3 rounded-full bg-pink-600/70 p-2 text-neutral-100 hover:bg-pink-500/70"
               type="submit"
             >
               <Send />

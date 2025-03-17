@@ -50,7 +50,7 @@ export function AppSidebar({ chats, setOldMessages }: { chats: Chat[], setOldMes
 
   return (
     <Sidebar>
-      <SidebarContent>
+      <SidebarContent className="bg-background">
         <SidebarHeader className="pt-5 px-3">
           <a className="hover:cursor-pointer" onMouseDown={() => handleClick('')}>G3 Chat</a>
         </SidebarHeader>
