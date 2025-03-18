@@ -60,9 +60,9 @@ export function AppSidebar({ chats }: { chats: Chat[] }) {
   return (
     <Sidebar className="border-r border-neutral-700">
       <SidebarContent className="bg-background">
-        <SidebarHeader className="pt-5 px-3">
+        <SidebarHeader className="flex shrink-0 px-3 pt-4 text-lg">
           <a
-            className="hover:cursor-pointer"
+            className="hover:cursor-pointer font-light text-neutral-200"
             onMouseDown={() => handleClick("")}
           >
             G3 Chat
