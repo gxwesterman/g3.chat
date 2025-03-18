@@ -60,7 +60,7 @@ export function AppSidebar({ chats }: { chats: Chat[] }) {
   return (
     <Sidebar className="border-r border-neutral-700">
       <SidebarContent className="bg-background">
-        <SidebarHeader className="flex shrink-0 px-3 pt-4 text-lg">
+        <SidebarHeader className="flex shrink-0 px-3 pt-4 pb-4 text-lg">
           <a
             className="hover:cursor-pointer font-light text-neutral-200"
             onMouseDown={() => handleClick("")}
@@ -74,7 +74,7 @@ export function AppSidebar({ chats }: { chats: Chat[] }) {
               <SidebarMenuButton
                 isActive={activeChatId === chat.id}
                 asChild
-                className="py-5 group/item relative"
+                className="py-[1.125rem] group/item relative mb-1 rounded"
               >
                 <a
                   onMouseDown={() => handleClick(chat.id)}
