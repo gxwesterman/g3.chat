@@ -81,9 +81,9 @@ export function AppSidebar({ chats }: { chats: Chat[] }) {
                   key={chat.id}
                   className="hover:cursor-default hover:bg-sidebar-accent/40 flex items-center justify-between"
                 >
-                  <div>New Chat</div>
+                  <div className="truncate max-w-[75%]">{`${chat.messages[0].text}`}</div>
                   <X
-                    className="absolute right-[-1rem] transition-all group-hover/item:right-2"
+                    className="hover:cursor-pointer absolute right-[-1rem] transition-all group-hover/item:right-2"
                     onClick={(e) => deleteChat(e, chat.id)}
                   />
                 </a>
