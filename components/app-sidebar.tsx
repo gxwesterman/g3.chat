@@ -58,7 +58,7 @@ export function AppSidebar({ chats }: { chats: Chat[] }) {
   };
 
   return (
-    <Sidebar>
+    <Sidebar className="border-r border-neutral-700">
       <SidebarContent className="bg-background">
         <SidebarHeader className="pt-5 px-3">
           <a
