@@ -20,7 +20,6 @@ export default function Chat({ messages }: { messages: Message[] }) {
 
   useEffect(() => {
     if (scrollRef.current) {
-      console.log(scrollRef.current.scrollHeight);
       scrollRef.current.scroll({
         top: scrollRef.current.scrollHeight,
         behavior: "instant"

@@ -42,6 +42,7 @@ export function AppSidebar({ chats }: { chats: Chat[] }) {
       db.transact(chat.messages.map((m) => db.tx.messages[m.id].delete()));
     }
     if (activeChatId === chatId) {
+      console.log(activeChatId);
       window.history.pushState({}, "", "/chat");
     }
   };
@@ -84,7 +85,7 @@ export function AppSidebar({ chats }: { chats: Chat[] }) {
                   <div className="truncate max-w-[75%] text-muted-foreground">{`${chat.messages[0].text}`}</div>
                   <X
                     className="hover:cursor-pointer absolute right-[-1rem] transition-all group-hover/item:right-2"
-                    onClick={(e) => deleteChat(e, chat.id)}
+                    onMouseDown={(e) => deleteChat(e, chat.id)}
                   />
                 </a>
               </SidebarMenuButton>
