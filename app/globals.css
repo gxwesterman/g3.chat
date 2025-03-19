@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@plugin "@tailwindcss/typography";
 
 body {
   font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
@@ -44,7 +43,7 @@ body {
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
   .dark {
-    --background: 0 0% 10.2%;
+    --background: 270 16.13% 12.16%;
     --foreground: 0 0% 98%;
     --card: 0 0% 3.9%;
     --card-foreground: 0 0% 98%;
@@ -52,15 +51,15 @@ body {
     --popover-foreground: 0 0% 98%;
     --primary: 0 0% 98%;
     --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 18%;
+    --secondary: 273.8 15.1% 20.8%;
     --secondary-foreground: 0 0% 98%;
     --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
+    --muted-foreground: 326 33% 86%;
+    --accent: rgba(25,21,29,.33);
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
+    --border: 262.5 10% 15.7%;
     --input: 0 0% 14.9%;
     --ring: 0 0% 83.1%;
     --chart-1: 220 70% 50%;
@@ -68,14 +67,16 @@ body {
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
-    --sidebar-background: 240 5.9% 10%;
+    --sidebar-background: 240 2.6% 7.6%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 0% 18%;
+    --sidebar-accent: 318.5 20.6% 12.4%;
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+    --chat-border: 334.3 32.6% 16.9%;
+    --bg-gradient-noise-top: 309 15% 9%;
   }
 }
 
@@ -90,7 +91,7 @@ body {
 }
 
 .chat-content pre {
-  @apply bg-neutral-800;
+  background-color: var(--accent);
   padding: 1rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -100,4 +101,17 @@ body {
 
 .chat-content code {
   white-space: pre-wrap;
+}
+
+.bg-noise {
+  background-image: url(/images/noise.png);
+  background-size: auto;
+  background-repeat: repeat;
+  background-size: 96px 96px;
+}
+.border-chat-border {
+  border-color: hsl(var(--chat-border));
+}
+.bg-chat-background {
+  background-color: hsl(var(--background));
 }

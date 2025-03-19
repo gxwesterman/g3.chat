@@ -147,6 +147,11 @@ const SidebarProvider = React.forwardRef<
             ref={ref}
             {...props}
           >
+            <div className="absolute inset-0 dark:bg-sidebar !fixed z-0">
+              <div className="absolute inset-0 opacity-40" style={{backgroundImage: "radial-gradient(closest-corner at 120px 36px, rgba(255, 1, 111, 0.19), rgba(255, 1, 111, 0.08)), linear-gradient(rgb(63, 51, 69) 15%, rgb(7, 3, 9))"}}></div>
+              <div className="absolute inset-0 bg-noise"></div>
+              <div className="absolute inset-0 bg-black/40"></div>
+            </div>
             {children}
           </div>
         </TooltipProvider>
@@ -249,7 +254,7 @@ const Sidebar = React.forwardRef<
         >
           <div
             data-sidebar="sidebar"
-            className="flex h-full w-full flex-col bg-sidebar group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow"
+            className="flex h-full w-full flex-col group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow"
           >
             {children}
           </div>

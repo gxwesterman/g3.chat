@@ -10,7 +10,7 @@ import ReactMarkdown from "react-markdown";
 export default function Chat({ messages }: { messages: Message[] }) {
   const pathname = usePathname();
   const [output, setOutput] = useState("");
-  const endRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
   const [streamingId, setStreamingId] = useState("");
   const test = useRef<{ [key: string]: JSX.Element }>({});
 
@@ -19,13 +19,17 @@ export default function Chat({ messages }: { messages: Message[] }) {
   };
 
   useEffect(() => {
-    if (endRef.current) {
-      endRef.current.scrollIntoView({ behavior: "instant" });
+    if (scrollRef.current) {
+      console.log(scrollRef.current.scrollHeight);
+      scrollRef.current.scroll({
+        top: scrollRef.current.scrollHeight,
+        behavior: "instant"
+      })
     }
   }, [pathname]);
 
   return (
-    <div className="relative flex-1 overflow-hidden">
+    <div className="absolute bottom-0 top-0 w-full">
       <ChatForm
         messages={messages}
         output={output}
@@ -34,10 +38,11 @@ export default function Chat({ messages }: { messages: Message[] }) {
         setStreamingId={setStreamingId}
       />
       <div
+        ref={scrollRef}
         key={pathname}
-        className="scrollbar scrollbar-w-2 scrollbar-thumb-gray-700 scrollbar-track-transparent hover:scrollbar-thumb-gray-600 h-[100dvh] overflow-y-auto overflow-x-hidden pb-[140px]"
+        className="scrollbar scrollbar-w-2 scrollbar-thumb-gray-700 scrollbar-track-transparent hover:scrollbar-thumb-gray-600 absolute inset-0 overflow-y-scroll pt-3.5 pb-[144px]"
       >
-        <div className="mx-auto flex w-full max-w-3xl flex-col space-y-12 p-4 pb-8 text-foreground/80">
+        <div className="mx-auto flex w-full max-w-3xl flex-col space-y-12 p-4 pb-8">
           {messages.map((message) => {
             if (message.type === "answer" && !test.current[message.id]) {
               test.current[message.id] = renderMarkdown(message.text);
@@ -46,8 +51,8 @@ export default function Chat({ messages }: { messages: Message[] }) {
               <div key={message.id}>
                 {message.type === "question" ? (
                   <div className="flex justify-end">
-                    <div className="group relative inline-block max-w-[80%] break-words rounded-2xl bg-secondary p-4 text-left">
-                      <div className="prose prose-neutral prose-invert max-w-none prose-pre:m-0 prose-pre:bg-transparent prose-pre:p-0">
+                    <div className="group relative inline-block max-w-[80%] break-words rounded-2xl bg-secondary/50 p-4 text-left">
+                      <div className="prose prose-pink prose-invert max-w-none prose-pre:m-0 prose-pre:bg-transparent prose-pre:p-0">
                         <p>{message.text}</p>
                       </div>
                     </div>
@@ -55,7 +60,7 @@ export default function Chat({ messages }: { messages: Message[] }) {
                 ) : (
                   <div className="flex justify-start chat-content">
                     <div className="group relative w-full max-w-full break-words">
-                      <div className="space-y-4 prose prose-neutral prose-invert max-w-none prose-pre:m-0 prose-pre:bg-transparent prose-pre:p-0">
+                      <div className="space-y-4 prose prose-pink prose-invert max-w-none prose-pre:m-0 prose-pre:bg-transparent prose-pre:p-0">
                         {test.current[message.id]}
                       </div>
                     </div>
@@ -67,13 +72,12 @@ export default function Chat({ messages }: { messages: Message[] }) {
           {streamingId === pathname.split("/").pop() && (
             <div className="flex justify-start chat-content">
               <div className="group relative w-full max-w-full break-words">
-                <div className="space-y-4 prose prose-neutral prose-invert max-w-none prose-pre:m-0 prose-pre:bg-transparent prose-pre:p-0">
+                <div className="space-y-4 prose prose-pink prose-invert max-w-none prose-pre:m-0 prose-pre:bg-transparent prose-pre:p-0">
                   <MemoizedMarkdown id={`${Date.now()}`} content={output} />
                 </div>
               </div>
             </div>
           )}
-          <div ref={endRef}></div>
         </div>
       </div>
     </div>

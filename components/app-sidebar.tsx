@@ -58,8 +58,8 @@ export function AppSidebar({ chats }: { chats: Chat[] }) {
   };
 
   return (
-    <Sidebar className="border-r border-neutral-700">
-      <SidebarContent className="bg-background">
+    <Sidebar className="border-none">
+      <SidebarContent>
         <SidebarHeader className="flex shrink-0 px-3 pt-4 pb-4 text-lg">
           <a
             className="hover:cursor-pointer font-light text-neutral-200"
@@ -74,14 +74,14 @@ export function AppSidebar({ chats }: { chats: Chat[] }) {
               <SidebarMenuButton
                 isActive={activeChatId === chat.id}
                 asChild
-                className="py-[1.125rem] group/item relative mb-1 rounded"
+                className="py-[1.125rem] group/item relative rounded-lg"
               >
                 <a
                   onMouseDown={() => handleClick(chat.id)}
                   key={chat.id}
-                  className="hover:cursor-default hover:bg-sidebar-accent/40 flex items-center justify-between"
+                  className="hover:cursor-default hover:bg-sidebar-accent flex items-center justify-between"
                 >
-                  <div className="truncate max-w-[75%]">{`${chat.messages[0].text}`}</div>
+                  <div className="truncate max-w-[75%] text-muted-foreground">{`${chat.messages[0].text}`}</div>
                   <X
                     className="hover:cursor-pointer absolute right-[-1rem] transition-all group-hover/item:right-2"
                     onClick={(e) => deleteChat(e, chat.id)}
