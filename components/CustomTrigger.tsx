@@ -1,5 +1,4 @@
 import { useSidebar } from "@/components/ui/sidebar"
-import { cn } from "@/lib/utils";
 import { PanelLeft } from "lucide-react"
 
 export function CustomTrigger() {
