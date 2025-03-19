@@ -3,18 +3,20 @@ import { cn } from "@/lib/utils";
 import { PanelLeft } from "lucide-react"
 
 export function CustomTrigger() {
-  const { toggleSidebar, open } = useSidebar();
+  const { toggleSidebar } = useSidebar();
 
   const handleClick = () => {
     toggleSidebar();
   }
  
   return (
-    <button
-      onClick={handleClick}
-      className={cn(!open && "rotate-180", "fixed flex items-center justify-center z-10 h-9 w-9 mt-3 ml-1 hover:bg-secondary/20 rounded-md transition-hover")}
-    >
-      <PanelLeft size="16px"/>
-    </button>
+    <div className="pointer-events-auto fixed left-2 top-2 z-50 flex flex-row gap-0.5 p-1">
+      <button
+        onClick={handleClick}
+        className="fixed flex items-center justify-center z-10 h-8 w-8 hover:bg-secondary/50 rounded-md transition-hover"
+      >
+        <PanelLeft size="16px" className="text-pink-200/70" />
+      </button>
+    </div>
   );
 }

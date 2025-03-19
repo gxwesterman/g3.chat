@@ -6,6 +6,7 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
 } from "@/components/ui/sidebar";
+import { Button } from "@/components/ui/button";
 import { db } from "@/lib/instant";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -61,12 +62,12 @@ export function AppSidebar({ chats }: { chats: Chat[] }) {
   return (
     <Sidebar className="border-none">
       <SidebarContent>
-        <SidebarHeader className="flex shrink-0 px-3 pt-4 pb-4 text-lg">
+        <SidebarHeader className="flex items-center shrink-0 px-3 pt-3.5 pb-4 text-lg">
           <a
-            className="hover:cursor-pointer font-light text-neutral-200"
+            className="hover:cursor-pointer text-pink-200"
             onMouseDown={() => handleClick("")}
           >
-            G3 Chat
+            G3.chat
           </a>
         </SidebarHeader>
         <SidebarMenu className="px-3">
@@ -80,13 +81,15 @@ export function AppSidebar({ chats }: { chats: Chat[] }) {
                 <a
                   onMouseDown={() => handleClick(chat.id)}
                   key={chat.id}
-                  className="hover:cursor-default hover:bg-sidebar-accent flex items-center justify-between"
+                  className="hover:cursor-pointer hover:bg-sidebar-accent flex items-center justify-between"
                 >
                   <div className="truncate max-w-[75%] text-muted-foreground">{`${chat.messages[0].text}`}</div>
-                  <X
-                    className="hover:cursor-pointer absolute right-[-1rem] transition-all group-hover/item:right-2"
-                    onMouseDown={(e) => deleteChat(e, chat.id)}
-                  />
+                  <button className="rounded-md p-1.5 hover:bg-destructive/50 hover:text-destructive-foreground absolute right-[-2rem] transition-all group-hover/item:right-1">
+                    <X
+                      className="h-4 w-4"
+                      onMouseDown={(e) => deleteChat(e, chat.id)}
+                    />
+                  </button>
                 </a>
               </SidebarMenuButton>
             </SidebarMenuItem>
