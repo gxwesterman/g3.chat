@@ -6,7 +6,6 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
 } from "@/components/ui/sidebar";
-import { Button } from "@/components/ui/button";
 import { db } from "@/lib/instant";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
