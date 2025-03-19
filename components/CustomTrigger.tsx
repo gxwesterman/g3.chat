@@ -14,7 +14,7 @@ export function CustomTrigger() {
         onClick={handleClick}
         className="fixed flex items-center justify-center z-10 h-8 w-8 hover:bg-secondary/50 rounded-md transition-hover"
       >
-        <PanelLeft size="16px" className="text-pink-200/70" />
+        <PanelLeft size="16px" className="text-pink-200/80" />
       </button>
     </div>
   );

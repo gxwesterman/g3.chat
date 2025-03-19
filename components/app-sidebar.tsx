@@ -64,7 +64,7 @@ export function AppSidebar({ chats }: { chats: Chat[] }) {
       <SidebarContent>
         <SidebarHeader className="flex items-center shrink-0 px-3 pt-3.5 pb-4 text-lg">
           <a
-            className="hover:cursor-pointer text-pink-200"
+            className="hover:cursor-pointer font-semibold text-pink-200"
             onMouseDown={() => handleClick("")}
           >
             G3.chat
@@ -83,10 +83,10 @@ export function AppSidebar({ chats }: { chats: Chat[] }) {
                   key={chat.id}
                   className="hover:cursor-pointer hover:bg-sidebar-accent flex items-center justify-between"
                 >
-                  <div className="truncate max-w-[75%] text-muted-foreground">{`${chat.messages[0].text}`}</div>
+                  <div className="truncate max-w-[75%] font-semibold text-muted-foreground">{`${chat.messages[0].text}`}</div>
                   <button className="rounded-md p-1.5 hover:bg-destructive/50 hover:text-destructive-foreground absolute right-[-2rem] transition-all group-hover/item:right-1">
                     <X
-                      className="h-4 w-4"
+                      className="h-4 w-4 text-muted-foreground"
                       onMouseDown={(e) => deleteChat(e, chat.id)}
                     />
                   </button>
