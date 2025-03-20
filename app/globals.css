@@ -60,7 +60,7 @@ body {
     --primary: 0 0% 98%;
     --primary-foreground: 0 0% 9%;
     --secondary: 273.8 15.1% 20.8%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary-foreground: 270 30% 83%;
     --muted: 283 9% 25%;
     --muted-foreground: 326 33% 86%;
     --accent: rgba(25,21,29,.33);
@@ -133,4 +133,22 @@ body {
 }
 ::selection {
   @apply bg-pink-700;
+}
+.border-reflect:before {
+  content: "";
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: var(--gradientBorder-size, 1px);
+  background: var(--gradientBorder-gradient);
+  -webkit-mask: linear-gradient(var(--start), #000) content-box, linear-gradient(var(--start), #000);
+  mask: linear-gradient(var(--start), #000) content-box, linear-gradient(var(--start), #000);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: var(--opacity, 1);
 }

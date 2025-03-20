@@ -165,8 +165,12 @@ export default function ChatForm({
   return (
     <div className="absolute bottom-0 w-full">
       <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-col text-center">
+        <div
+          className="relative rounded-t-[20px] bg-white/40 p-2 pb-0 backdrop-blur-lg ![--c:295_100%_90%] dark:bg-[hsl(270,10%,20%)]/40 dark:![--c:289_23%_23%]"
+        >
         <form
-          className="flex items-center flex-col bg-secondary shadow-[0px_0px_5px_2px] shadow-background rounded-t-xl py-3"
+          className="relative flex w-full flex-col items-stretch gap-2 rounded-t-xl border border-b-0 border-white/70 bg-[#fbf0fb9c] px-3 py-3 text-secondary-foreground outline outline-8 outline-[hsl(300,87.8%,86.9%)]/40 dark:border-[hsl(0,0%,83%)]/[0.04] dark:bg-secondary/[0.045] dark:outline-background/40 sm:max-w-3xl"
+          style={{boxShadow: "rgba(0, 0, 0, 0.1) 0px 80px 50px 0px, rgba(0, 0, 0, 0.07) 0px 50px 30px 0px, rgba(0, 0, 0, 0.06) 0px 30px 15px 0px, rgba(0, 0, 0, 0.04) 0px 15px 8px, rgba(0, 0, 0, 0.04) 0px 6px 4px, rgba(0, 0, 0, 0.02) 0px 2px 2px"}}
           onSubmit={handleSubmit}
         >
           <Textarea
@@ -187,6 +191,7 @@ export default function ChatForm({
             </Button>
           </div>
         </form>
+        </div>
       </div>
     </div>
   );
