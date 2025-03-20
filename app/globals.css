@@ -57,7 +57,7 @@ body {
     --card-foreground: 0 0% 98%;
     --popover: 0 0% 3.9%;
     --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
+    --primary: 332 100% 32%;
     --primary-foreground: 0 0% 9%;
     --secondary: 273.8 15.1% 20.8%;
     --secondary-foreground: 270 30% 83%;
@@ -133,6 +133,23 @@ body {
 }
 ::selection {
   @apply bg-pink-700;
+}
+.border-reflect {
+  --c: 320 100% 75%;
+  --min: hsl(var(--c) / 0.2);
+  --max: hsl(var(--c) / 1);
+  --gradientBorder-gradient: linear-gradient(180deg, var(--min), var(--max), var(--min)), linear-gradient(15deg, var(--min) 50%, var(--max));
+  --opacity: 1;
+  --start: rgba(0, 0, 0, .85);
+}
+.dark .border-reflect {
+  --gradientBorder-gradient: linear-gradient(180deg, #93335b00, #93335bbd, #93335b17), linear-gradient(15deg, #93335b1f 50%, #93335bbd);
+  --start: rgba(0, 0, 0, .92);
+}
+.dark .border-reflect-form {
+  --gradientBorder-gradient: linear-gradient(180deg, var(--min), var(--max), var(--min)), linear-gradient(15deg, var(--min) 50%, var(--max));
+  --start: #000000e0;
+  --opacity: 1;
 }
 .border-reflect:before {
   content: "";

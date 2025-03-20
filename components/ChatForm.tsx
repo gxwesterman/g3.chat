@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import React, { useEffect, useRef, useState } from "react";
 import { id } from '@instantdb/react';
 import { usePathname } from 'next/navigation';
-import { Send } from 'lucide-react';
+import { ArrowUp } from 'lucide-react';
 
 function addMessage(text: string, type: string, chatId: string) {
   db.transact(
@@ -166,28 +166,28 @@ export default function ChatForm({
     <div className="absolute bottom-0 w-full">
       <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-col text-center">
         <div
-          className="relative rounded-t-[20px] bg-white/40 p-2 pb-0 backdrop-blur-lg ![--c:295_100%_90%] dark:bg-[hsl(270,10%,20%)]/40 dark:![--c:289_23%_23%]"
+          className="border-reflect border-reflect-form relative rounded-t-[20px] bg-white/40 p-2 pb-0 backdrop-blur-lg ![--c:295_100%_90%] dark:bg-[hsl(270,10%,20%)]/40 dark:![--c:289_23%_23%]"
         >
         <form
           className="relative flex w-full flex-col items-stretch gap-2 rounded-t-xl border border-b-0 border-white/70 bg-[#fbf0fb9c] px-3 py-3 text-secondary-foreground outline outline-8 outline-[hsl(300,87.8%,86.9%)]/40 dark:border-[hsl(0,0%,83%)]/[0.04] dark:bg-secondary/[0.045] dark:outline-background/40 sm:max-w-3xl"
           style={{boxShadow: "rgba(0, 0, 0, 0.1) 0px 80px 50px 0px, rgba(0, 0, 0, 0.07) 0px 50px 30px 0px, rgba(0, 0, 0, 0.06) 0px 30px 15px 0px, rgba(0, 0, 0, 0.04) 0px 15px 8px, rgba(0, 0, 0, 0.04) 0px 6px 4px, rgba(0, 0, 0, 0.02) 0px 2px 2px"}}
           onSubmit={handleSubmit}
         >
-          <Textarea
-            ref={textAreaRef}
-            name="message"
-            className="grow resize-none border-none outline-none text-base shadow-none focus-visible:ring-0 max-h-80"
-            placeholder="Type your message here..."
-            onKeyDown={handleKeyDown}
-            value={input}
-            onChange={(e) => handleChange(e.target.value)}
-          />
-          <div className="w-full flex justify-end">
+          <div className="flex flex-grow flex-row items-start">
+            <Textarea
+              ref={textAreaRef}
+              name="message"
+              className="font-semibold grow resize-none border-none outline-none text-base shadow-none focus-visible:ring-0 max-h-80"
+              placeholder="Type your message here..."
+              onKeyDown={handleKeyDown}
+              value={input}
+              onChange={(e) => handleChange(e.target.value)}
+            />
             <Button
-              className="transition-colors shadow h-9 w-9 absolute bottom-3 right-3 rounded-full bg-pink-600/70 p-2 text-neutral-100 hover:bg-pink-500/70"
+              className="transition-colors font-semibold bg-[rgb(162,59,103)] dark:bg-primary/20 dark:hover:bg-pink-800/70 shadow border-reflect button-reflect hover:bg-[#d56698] active:bg-[rgb(162,59,103)] dark:active:bg-pink-800/40 h-9 w-9 relative rounded-lg p-2 text-pink-50"
               type="submit"
             >
-              <Send />
+              <ArrowUp className="!size-5" />
             </Button>
           </div>
         </form>
