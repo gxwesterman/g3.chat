@@ -32,26 +32,3 @@ export async function POST(req: Request) {
     },
   });
 }
-
-// import { streamText } from 'ai';
-// import { google } from "@ai-sdk/google";
-
-// // Allow streaming responses up to 30 seconds
-// export const maxDuration = 30;
-
-// export async function POST(req: Request) {
-//   const { messages } = await req.json();
-//   const coreMessages = messages.map((message: {type: string, text: string}) => {
-//     return {
-//       role: message.type === 'question' ? 'user' : 'system',
-//       content: message.text
-//     }
-//   })
-
-//   const result = streamText({
-//     model: google('gemini-2.0-flash'),
-//     messages: coreMessages,
-//   });
-
-//   return result.toDataStreamResponse({});
-// }
