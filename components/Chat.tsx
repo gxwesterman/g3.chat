@@ -50,7 +50,7 @@ export default function Chat({ messages }: { messages: Message[] }) {
               <div key={message.id}>
                 {message.type === "question" ? (
                   <div className="flex justify-end">
-                    <div className="group relative inline-block max-w-[80%] break-words rounded-2xl bg-secondary/50 p-4 text-left">
+                    <div className="group relative inline-block max-w-[80%] break-words rounded-2xl border border-secondary/50 bg-secondary/50 p-4 text-left">
                       <div className="prose prose-pink prose-invert max-w-none prose-pre:m-0 prose-pre:bg-transparent prose-pre:p-0">
                         <p>{message.text}</p>
                       </div>
