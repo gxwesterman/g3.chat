@@ -1,9 +1,9 @@
-import { cookies } from 'next/headers'
+'use client'
 import { setSession } from '@/app/actions/setSession'
+import { useEffect } from 'react';
  
-export default async function Page() {
-  const cookieStore = await cookies();
-  const session = cookieStore.get('session');
-  await setSession(session?.value);
-  return '...'
+export default function Page() {
+ useEffect(() => {
+  setSession();
+ }, []);
 }
