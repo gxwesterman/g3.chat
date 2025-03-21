@@ -1,5 +1,5 @@
 'use server'
-import { createSession } from '@/app/api/session/route'
+import { createSession } from '@/app/lib/session'
 import { id } from '@instantdb/react';
 import { redirect } from 'next/navigation';
 
