@@ -7,6 +7,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { id } from '@instantdb/react';
 import { usePathname } from 'next/navigation';
 import { ArrowUp } from 'lucide-react';
+import { getSession } from '@/app/actions/getSession';
 
 function addMessage(text: string, type: string, chatId: string) {
   db.transact(
@@ -18,9 +19,12 @@ function addMessage(text: string, type: string, chatId: string) {
   );
 }
 
-function startChat(id: string) {
+async function startChat(id: string) {
+  const sessionId = await getSession();
   const newChat = db.transact(
-    db.tx.chats[id].update({}),
+    db.tx.chats[id].update({
+      sessionId
+    }),
   );
   return newChat;
 }
@@ -109,9 +113,7 @@ export default function ChatForm({
     if (pageChatId === 'chat') {
         pageChatId = id();
         window.history.pushState({}, '', window.location.href + `/${pageChatId}`);
-        setTimeout(() => {
-          startChat(pageChatId);
-        }, 0);
+        startChat(pageChatId);
     }
     setStreamingId(pageChatId);
     addMessage(input, 'question', pageChatId);

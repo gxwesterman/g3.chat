@@ -7,13 +7,28 @@ import { db } from "@/lib/instant";
 import { usePathname } from "next/navigation";
 import Chat from "@/components/Chat";
 import { Border } from "@/components/Border";
+import { useEffect, useState } from "react";
 
 export default function ChatLayout() {
+
+  const [sessionId, setSessionId] = useState('');
   const pathname = usePathname();
   const pageChatId = pathname.split("/").pop() || "";
 
+  useEffect(() => {
+    const cookies = document.cookie.split(';');
+    const userIdCookie = cookies.find(cookie => cookie.trim().startsWith('session='));
+    const extractedUserId = userIdCookie ? userIdCookie.split('=')[1].trim() : '';
+    setSessionId(extractedUserId);
+  }, [])
+
   const chatsQuery = {
     chats: {
+      $: {
+        where: {
+          sessionId: sessionId
+        }
+      },
       messages: {},
     },
   };
