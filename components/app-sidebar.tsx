@@ -62,16 +62,16 @@ export function AppSidebar({ chats }: { chats: Chat[] }) {
   return (
     <Sidebar className="border-none">
       {isMobile &&
-        <div className="absolute inset-0 -z-50 dark:bg-sidebar">
-          <div className="absolute inset-0 opacity-40" style={{backgroundImage: "radial-gradient(closest-corner at 120px 36px, rgba(255, 1, 111, 0.19), rgba(255, 1, 111, 0.08)), linear-gradient(rgb(63, 51, 69) 15%, rgb(7, 3, 9))"}}></div>
+        <div className="absolute inset-0 -z-50 bg-sidebar">
+          <div className="absolute inset-0 opacity-40 background-gradient"></div>
           <div className="absolute inset-0 bg-noise"></div>
-          <div className="absolute inset-0 bg-black/40"></div>
+          <div className="absolute inset-0 dark:bg-black/40"></div>
         </div>
       }
       <SidebarContent>
         <SidebarHeader className="flex items-center shrink-0 px-3 pt-3.5 pb-4 text-lg">
           <a
-            className="hover:cursor-pointer font-semibold text-pink-200"
+            className="hover:cursor-pointer font-semibold text-pink-700 dark:text-pink-200"
             onMouseDown={() => handleClick("")}
           >
             G3.chat
