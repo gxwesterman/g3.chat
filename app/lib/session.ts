@@ -6,7 +6,7 @@ export async function createSession(sessionId: string) {
   const cookieStore = await cookies()
 
   cookieStore.set('session', sessionId, {
-    httpOnly: true,
+    httpOnly: false,
     secure: true,
     expires: expiresAt,
     sameSite: 'lax',
