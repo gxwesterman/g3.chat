@@ -6,7 +6,9 @@ const schema = i.schema({
     $users: i.entity({
       email: i.string().unique().indexed(),
     }),
-    chats: i.entity({}),
+    chats: i.entity({
+      sessionId: i.string(),
+    }),
     messages: i.entity({
       chatId: i.string(),
       text: i.string(),
