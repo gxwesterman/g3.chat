@@ -134,7 +134,7 @@ body {
 }
 ::selection {
   @apply bg-pink-700;
-  @apply text-background;
+  @apply text-background dark:text-foreground;
 }
 .border-reflect {
   --c: 320 100% 75%;
