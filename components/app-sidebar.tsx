@@ -44,7 +44,6 @@ export function AppSidebar({ chats }: { chats: Chat[] }) {
       db.transact(chat.messages.map((m) => db.tx.messages[m.id].delete()));
     }
     if (activeChatId === chatId) {
-      console.log(activeChatId);
       window.history.pushState({}, "", "/chat");
     }
   };
