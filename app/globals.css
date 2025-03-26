@@ -41,7 +41,7 @@ body {
     --sidebar-accent-foreground: 240 10% 30%;
     --sidebar-border: 20 6% 92%;
     --sidebar-ring: 333.3, 71.4%, 50.6%;
-    --gradient-noise-top: 292 42.9% 93.1%;
+    --gradient: 292 42.9% 93.1%;
     --chat-border: 304.8 61% 83.9%;
     --chat-background: 300 56% 98%;
     --chat-accent: #f5ecf9;
@@ -91,7 +91,7 @@ body {
     --chat-border: 334.3 32.6% 16.9%;
     --chat-background: 270 16.13% 12.16%;
     --chat-accent: rgba(25,21,29,.33);
-    --gradient-noise-top: 309 15% 9%;
+    --gradient: 309 15% 9%;
     --color-pink-100: #f2ebfa;
     --color-pink-200: #eadef7;
     --color-pink-300: #d8c3ef;
@@ -176,7 +176,4 @@ body {
 }
 .dark .background-gradient {
   background-image: radial-gradient(closest-corner at 120px 36px, rgba(255, 1, 111, 0.19), rgba(255, 1, 111, 0.08)), linear-gradient(rgb(63, 51, 69) 15%, rgb(7, 3, 9))
-}
-.bg-gradient-noise-top {
-  background-color: hsl(var(--gradient-noise-top));
 }
