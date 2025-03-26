@@ -177,3 +177,6 @@ body {
 .dark .background-gradient {
   background-image: radial-gradient(closest-corner at 120px 36px, rgba(255, 1, 111, 0.19), rgba(255, 1, 111, 0.08)), linear-gradient(rgb(63, 51, 69) 15%, rgb(7, 3, 9))
 }
+.bg-gradient-noise-top {
+  background-color: hsl(var(--gradient-noise-top));
+}
