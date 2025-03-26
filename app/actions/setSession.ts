@@ -1,7 +1,6 @@
 'use server'
 import { createSession } from '@/app/lib/session'
 import { id } from '@instantdb/react';
-import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers'
 
 export async function setSession() {
@@ -10,9 +9,10 @@ export async function setSession() {
     const session = cookieStore.get('session');
     if (!session) {
       await createSession(id());
+    } else {
+      return;
     }
   } catch (error) {
     console.log(error);
   }
-  redirect('/chat');
 }
