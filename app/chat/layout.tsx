@@ -46,7 +46,6 @@ export default function ChatLayout() {
   if (error) return <div>Error fetching data: {error.message}</div>;
 
   const chat = data.chats.find((chat) => chat.id === pageChatId);
-  if (!chat) { window.history.pushState({}, "", "/chat"); }
   const messages = chat ? chat.messages : [];
 
   return (
