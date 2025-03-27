@@ -28,7 +28,7 @@ export default function ChatLayout() {
     const userIdCookie = cookies.find(cookie => cookie.trim().startsWith('session='));
     const extractedUserId = userIdCookie ? userIdCookie.split('=')[1].trim() : '';
     setSessionId(extractedUserId);
-  }, [])
+  }, [pathname])
 
   const chatsQuery = {
     chats: {
