@@ -14,6 +14,7 @@ import { X } from "lucide-react";
 
 type Chat = {
   id: string;
+  title: string;
   messages: {
     id: string;
     text: string;
@@ -90,7 +91,7 @@ export function AppSidebar({ chats }: { chats: Chat[] }) {
                   key={chat.id}
                   className="hover:cursor-pointer hover:bg-sidebar-accent flex items-center justify-between"
                 >
-                  <div className="truncate max-w-[75%] font-semibold text-muted-foreground">{`${chat.messages ? chat.messages[0].text : 'New Chat'}`}</div>
+                  <div className="truncate max-w-[75%] font-semibold text-muted-foreground">{`${chat.title}`}</div>
                   <button className="rounded-md p-1.5 hover:bg-pink-800/50 hover:text-destructive-foreground absolute right-[-2rem] transition-all group-hover/item:right-1">
                     <X
                       className="h-4 w-4 text-muted-foreground"

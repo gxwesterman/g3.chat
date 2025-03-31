@@ -19,11 +19,12 @@ function addMessage(text: string, type: string, chatId: string) {
   );
 }
 
-async function startChat(id: string) {
+async function startChat(id: string, title: string) {
   const sessionId = await getSession();
   const newChat = db.transact(
     db.tx.chats[id].update({
-      sessionId
+      sessionId,
+      title
     }),
   );
   return newChat;
@@ -113,7 +114,7 @@ export default function ChatForm({
     if (pageChatId === 'chat') {
         pageChatId = id();
         window.history.pushState({}, '', window.location.href + `/${pageChatId}`);
-        startChat(pageChatId);
+        startChat(pageChatId, input);
     }
     setStreamingId(pageChatId);
     addMessage(input, 'question', pageChatId);

@@ -8,6 +8,7 @@ const schema = i.schema({
     }),
     chats: i.entity({
       sessionId: i.string(),
+      title: i.string(),
     }),
     messages: i.entity({
       chatId: i.string(),
