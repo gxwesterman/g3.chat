@@ -113,9 +113,7 @@ export default function ChatForm({
     if (pageChatId === 'chat') {
         pageChatId = id();
         window.history.pushState({}, '', window.location.href + `/${pageChatId}`);
-        setTimeout(() => {
-          startChat(pageChatId);
-        }, 0);
+        startChat(pageChatId);
     }
     setStreamingId(pageChatId);
     addMessage(input, 'question', pageChatId);
