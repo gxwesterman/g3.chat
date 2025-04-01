@@ -35,7 +35,7 @@ export function AppSidebar({ chats }: { chats: Chat[] }) {
   }, [pathname]);
 
   const deleteChat = (
-    e: React.MouseEvent<SVGSVGElement, MouseEvent>,
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     chatId: string
   ) => {
     e.stopPropagation();
@@ -92,11 +92,11 @@ export function AppSidebar({ chats }: { chats: Chat[] }) {
                   className="hover:cursor-pointer hover:bg-sidebar-accent flex items-center justify-between"
                 >
                   <div className="truncate max-w-[75%] font-semibold text-muted-foreground">{`${chat.title}`}</div>
-                  <button className="rounded-md p-1.5 hover:bg-pink-800/50 hover:text-destructive-foreground absolute right-[-2rem] transition-all group-hover/item:right-1">
-                    <X
-                      className="h-4 w-4 text-muted-foreground"
-                      onMouseDown={(e) => deleteChat(e, chat.id)}
-                    />
+                  <button
+                    className="rounded-md p-1.5 hover:bg-pink-800/50 hover:text-destructive-foreground absolute right-[-2rem] transition-all group-hover/item:right-1"
+                    onMouseDown={(e) => deleteChat(e, chat.id)}
+                  >
+                    <X className="h-4 w-4 text-muted-foreground" />
                   </button>
                 </a>
               </SidebarMenuButton>
