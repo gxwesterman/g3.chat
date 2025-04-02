@@ -7,7 +7,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { id } from '@instantdb/react';
 import { usePathname } from 'next/navigation';
 import { ArrowUp } from 'lucide-react';
-import { getSession } from '@/app/actions/getSession';
 
 function addMessage(text: string, type: string, chatId: string) {
   db.transact(
