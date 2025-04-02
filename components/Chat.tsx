@@ -1,15 +1,14 @@
 "use client";
 
-import { useState, useRef, useEffect, JSX } from "react";
+import React, { useState, useRef, useEffect, JSX, useMemo } from "react";
 import ChatForm from "@/components/ChatForm";
 import { usePathname } from "next/navigation";
-import { MemoizedMarkdown } from "@/components/memoized-markdown";
 import { Message } from "@/lib/types";
 import ReactMarkdown from "react-markdown";
 
 export default function Chat({ messages }: { messages: Message[] }) {
   const pathname = usePathname();
-  const [output, setOutput] = useState("");
+  const [output, setOutput] = useState<React.ReactNode[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [streamingId, setStreamingId] = useState("");
   const test = useRef<{ [key: string]: JSX.Element }>({});
@@ -26,6 +25,16 @@ export default function Chat({ messages }: { messages: Message[] }) {
       })
     }
   }, [pathname]);
+
+  const stringResult = useMemo(() => {
+    return output.map(node => {
+      if (React.isValidElement(node)) {
+        const props = node.props as { children: string };
+        return String(props.children || '');
+      }
+      return String(node || '');
+    }).join('');
+  }, [output]);
 
   return (
     <div className="absolute bottom-0 top-0 w-full">
@@ -72,7 +81,7 @@ export default function Chat({ messages }: { messages: Message[] }) {
             <div className="flex justify-start chat-content">
               <div className="group relative w-full max-w-full break-words">
                 <div className="space-y-4 prose prose-pink prose-invert max-w-none prose-pre:m-0 prose-pre:bg-transparent prose-pre:p-0">
-                  <MemoizedMarkdown id={`${Date.now()}`} content={output} />
+                  <ReactMarkdown>{stringResult}</ReactMarkdown>
                 </div>
               </div>
             </div>

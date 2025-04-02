@@ -20,10 +20,12 @@ function addMessage(text: string, type: string, chatId: string) {
 }
 
 async function startChat(id: string, title: string) {
-  const sessionId = await getSession();
+  const cookies = document.cookie.split(';');
+  const userIdCookie = cookies.find(cookie => cookie.trim().startsWith('session='));
+  const extractedUserId = userIdCookie ? userIdCookie.split('=')[1].trim() : '';
   const newChat = db.transact(
     db.tx.chats[id].update({
-      sessionId,
+      sessionId: extractedUserId,
       title
     }),
   );
@@ -38,8 +40,8 @@ export default function ChatForm({
   setStreamingId
 }: {
   messages: { [x: string]: string; id: string; }[],
-  output: string,
-  setOutput: (output: string) => void,
+  output: React.ReactNode[],
+  setOutput: (output: React.ReactNode[]) => void,
   streamingId: string,
   setStreamingId: (streamingId: string) => void
 }) {
@@ -56,24 +58,20 @@ export default function ChatForm({
     const streamText = () => {
       if (currentIndex < text.length) {
         const bufferLength = 7;
-        let buffer = output;
+        let buffer = '';
         let i = 0;
         for (i; (i + currentIndex) < text.length && i < bufferLength; i++) {
           buffer += text[currentIndex + i];
         }
-        setOutput(buffer);
+        setOutput([...output, <span key={`${Date.now()}`}>{buffer}</span>]);
         setCurrentIndex(currentIndex + i);
-      } else {
-        if (requestRef.current) {
-          cancelAnimationFrame(requestRef.current);
-        }
       }
     };
 
     if (text.length === 0) return;
     if (streamingDone && currentIndex === text.length) {
       addMessage(text, 'answer', streamingId);
-      setOutput('');
+      setOutput([]);
       setText('');
       setStreamingId('');
       setCurrentIndex(0);
