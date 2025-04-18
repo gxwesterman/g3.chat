@@ -7,6 +7,7 @@ import {
   SidebarMenuButton,
   useSidebar
 } from "@/components/ui/sidebar";
+import { Button } from "@/components/ui/button";
 import { db } from "@/lib/instant";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -69,8 +70,8 @@ export function AppSidebar({ chats }: { chats: Chat[] }) {
           <div className="absolute inset-0 dark:bg-black/40"></div>
         </div>
       }
-      <SidebarContent>
-        <SidebarHeader className="flex items-center shrink-0 px-3 pt-3.5 pb-4 text-lg">
+      <SidebarContent className="px-1">
+        <SidebarHeader className="flex items-center shrink-0 px-3 pt-3.5 pb-1 text-lg">
           <a
             className="hover:cursor-pointer font-semibold text-pink-700 dark:text-pink-200"
             onMouseDown={() => handleClick("")}
@@ -79,6 +80,8 @@ export function AppSidebar({ chats }: { chats: Chat[] }) {
           </a>
         </SidebarHeader>
         <SidebarMenu className="px-3">
+          <Button onClick={() =>window.history.pushState({}, "", "/chat")} className="font-bold rounded-lg text-background dark:text-pink-200 bg-[rgb(162,59,103)] dark:bg-primary/20 dark:hover:bg-pink-800/70 p-2 shadow border-reflect button-reflect relative hover:bg-[#d56698] active:bg-[rgb(162,59,103)] dark:active:bg-pink-800/40">New Chat</Button>
+          <div className="border-b border-border mb-4"></div>
           {chats.map((chat) => (
             <SidebarMenuItem key={chat.id}>
               <SidebarMenuButton

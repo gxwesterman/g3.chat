@@ -171,6 +171,11 @@ body {
   mask-composite: exclude;
   opacity: var(--opacity, 1);
 }
+.button-reflect {
+  --min: #2e001f40 !important;
+  --max: #ffa6e2b0 !important;
+  --start: #000000d9 !important;
+}
 .background-gradient {
   background-image: radial-gradient(closest-corner at 120px 36px, rgba(255, 255, 255, 0.17), rgba(255, 255, 255, 0)), linear-gradient(rgb(254, 247, 255) 15%, rgb(244, 214, 250));
 }

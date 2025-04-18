@@ -7,7 +7,8 @@ export default function Page() {
   const router = useRouter();
   useEffect(() => {
     const login = async () => {
-      setSession();
+      const session = setSession();
+      session.then((value) => console.log(value));
     }
     login();
     router.push('/chat');

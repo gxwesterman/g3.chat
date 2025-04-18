@@ -10,7 +10,7 @@ export async function setSession() {
     if (!session) {
       await createSession(id());
     } else {
-      return;
+      return 1;
     }
   } catch (error) {
     console.log(error);
