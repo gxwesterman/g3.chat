@@ -81,7 +81,7 @@ export function AppSidebar({ chats }: { chats: Chat[] }) {
         </SidebarHeader>
         <SidebarMenu className="px-3">
           <Button onClick={() =>window.history.pushState({}, "", "/chat")} className="font-bold rounded-lg text-background dark:text-pink-200 bg-[rgb(162,59,103)] dark:bg-primary/20 dark:hover:bg-pink-800/70 p-2 shadow border-reflect button-reflect relative hover:bg-[#d56698] active:bg-[rgb(162,59,103)] dark:active:bg-pink-800/40">New Chat</Button>
-          <div className="border-b border-border mb-4"></div>
+          <div className="border-b border-border my-4"></div>
           {chats.map((chat) => (
             <SidebarMenuItem key={chat.id}>
               <SidebarMenuButton
