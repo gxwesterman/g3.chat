@@ -18,7 +18,7 @@ export default function ChatLayout() {
 
   useEffect(() => {
     const login = async () => {
-      setSession();
+      await setSession();
     }
     login();
   }, []);
@@ -45,7 +45,7 @@ export default function ChatLayout() {
   if (isLoading) return <div></div>;
   if (error) return <div>Error fetching data: {error.message}</div>;
 
-  const chat = data.chats.find((chat) => chat.id === pageChatId);
+  const chat = data.chats.find((chat) => chat.urlId === pageChatId);
   const messages = chat ? chat.messages : [];
 
   return (

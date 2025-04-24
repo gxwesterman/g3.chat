@@ -24,6 +24,7 @@ async function startChat(id: string, title: string) {
   const extractedUserId = userIdCookie ? userIdCookie.split('=')[1].trim() : '';
   const newChat = db.transact(
     db.tx.chats[id].update({
+      urlId: id,
       sessionId: extractedUserId,
       title
     }),
