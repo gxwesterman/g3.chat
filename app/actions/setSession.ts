@@ -9,8 +9,6 @@ export async function setSession() {
     const session = cookieStore.get('session');
     if (!session) {
       await createSession(id());
-    } else {
-      return 1;
     }
   } catch (error) {
     console.log(error);
