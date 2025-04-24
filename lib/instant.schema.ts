@@ -7,6 +7,7 @@ const schema = i.schema({
       email: i.string().unique().indexed(),
     }),
     chats: i.entity({
+      urlId: i.string(),
       sessionId: i.string(),
       title: i.string(),
     }),
