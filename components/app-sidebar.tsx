@@ -15,6 +15,7 @@ import { X } from "lucide-react";
 
 type Chat = {
   id: string;
+  urlId: string;
   title: string;
   messages: {
     id: string;
@@ -27,35 +28,35 @@ type Chat = {
 export function AppSidebar({ chats }: { chats: Chat[] }) {
   const { isMobile } = useSidebar();
   const pathname = usePathname();
-  const [activeChatId, setActiveChatId] = useState(
+  const [activeUrlId, setActiveUrlId] = useState(
     pathname.split("/").pop() || ""
   );
 
   useEffect(() => {
-    setActiveChatId(pathname.split("/").pop() || "");
+    setActiveUrlId(pathname.split("/").pop() || "");
   }, [pathname]);
 
   const deleteChat = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    chatId: string
+    chat: Chat
   ) => {
     e.stopPropagation();
-    db.transact(db.tx.chats[chatId].delete());
-    const chat = chats.find((chat) => chat.id === chatId);
-    if (chat) {
+    db.transact(db.tx.chats[chat.id].delete());
+    //const chat = chats.find((chat) => chat.id === chatId);
+    //if (chat) {
       db.transact(chat.messages.map((m) => db.tx.messages[m.id].delete()));
-    }
-    if (activeChatId === chatId) {
+    //}
+    if (activeUrlId === chat.urlId) {
       window.history.pushState({}, "", "/chat");
     }
   };
 
-  const handleClick = (chatId: string) => {
-    if (chatId !== activeChatId) {
-      setActiveChatId(chatId);
+  const handleClick = (urlId: string) => {
+    if (urlId !== activeUrlId) {
+      setActiveUrlId(urlId);
     }
-    if (chatId) {
-      window.history.pushState({}, "", `/chat/${chatId}`);
+    if (urlId) {
+      window.history.pushState({}, "", `/chat/${urlId}`);
     } else {
       window.history.pushState({}, "", "/chat");
     }
@@ -80,24 +81,24 @@ export function AppSidebar({ chats }: { chats: Chat[] }) {
           </a>
         </SidebarHeader>
         <SidebarMenu className="px-3">
-          <Button onClick={() =>window.history.pushState({}, "", "/chat")} className="font-bold rounded-lg text-background dark:text-pink-200 bg-[rgb(162,59,103)] dark:bg-primary/20 dark:hover:bg-pink-800/70 p-2 shadow border-reflect button-reflect relative hover:bg-[#d56698] active:bg-[rgb(162,59,103)] dark:active:bg-pink-800/40">New Chat</Button>
+          <Button onClick={() =>window.history.pushState({}, "", "/chat")} className="font-bold rounded-lg text-background dark:text-pink-200 bg-[rgb(162,59,103)] dark:bg-primary/20 dark:hover:bg-pink-800/70 p-2 shadow border-reflect button-reflect relative hover:bg-[#d56698] active:bg-[rgb(162,59,103)] dark:active:bg-pink-800/70">New Chat</Button>
           <div className="border-b border-border my-4"></div>
           {chats.map((chat) => (
             <SidebarMenuItem key={chat.id}>
               <SidebarMenuButton
-                isActive={activeChatId === chat.id}
+                isActive={activeUrlId === chat.urlId}
                 asChild
                 className="py-[1.125rem] group/item relative rounded-lg"
               >
                 <a
-                  onMouseDown={() => handleClick(chat.id)}
+                  onMouseDown={() => handleClick(chat.urlId)}
                   key={chat.id}
                   className="hover:cursor-pointer hover:bg-sidebar-accent flex items-center justify-between"
                 >
                   <div className="truncate max-w-[75%] font-semibold text-muted-foreground">{`${chat.title}`}</div>
                   <button
                     className="rounded-md p-1.5 hover:bg-pink-800/50 hover:text-destructive-foreground absolute right-[-2rem] transition-all group-hover/item:right-1"
-                    onMouseDown={(e) => deleteChat(e, chat.id)}
+                    onMouseDown={(e) => deleteChat(e, chat)}
                   >
                     <X className="h-4 w-4 text-muted-foreground" />
                   </button>
