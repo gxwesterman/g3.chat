@@ -7,9 +7,13 @@ export default function Page() {
   const router = useRouter();
   useEffect(() => {
     const login = async () => {
-      await setSession();
+      const status = await setSession();
+      if (status) {
+        router.push('/chat/welcome');
+      } else {
+        router.push('/chat');
+      }
     }
     login();
-    router.push('/chat');
   }, []);
 }

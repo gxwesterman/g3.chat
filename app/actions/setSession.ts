@@ -12,6 +12,9 @@ export async function setSession() {
     if (!session) {
       await initDefaultPages(sessionId);
       await createSession(sessionId);
+      return 1;
+    } else {
+      return 0;
     }
   } catch (error) {
     console.log(error);

@@ -21,34 +21,32 @@ We're free. It's a personal project that uses a free API. Why would we charge?
 
 ### Whatcha waiting for?
 
-Reply here to get started. Or you can [check out the FAQ](https://t3.chat/chat/faq)`;
+Reply here to get started. Or start a new chat!`;
 
 export async function initDefaultPages(sessionId: string) {
-  //console.log(db);
+
+  const chatId = id();
   await db.transact([
-    db.tx.chats[id()].update({
+    db.tx.chats[chatId].update({
       urlId: 'welcome',
       sessionId: sessionId,
       title: 'Welcome to G3 Chat'
     })],
   );
 
-  //const res = await db.transact([db.tx.chats[id()].update({ title: 'chicken', sessionId: sessionId })])
+  await db.transact(
+    db.tx.messages[id()].update({
+      chatId,
+      text: 'What is G3 Chat',
+      type: 'question',
+    }).link({ chats: chatId }),
+  );
 
-
-  // db.transact(
-  //   db.tx.messages[id()].update({
-  //     chatId: 'welcome',
-  //     text: 'What is G3 Chat',
-  //     type: 'question',
-  //   }).link({ chats: 'welcome' }),
-  // );
-
-  // db.transact(
-  //   db.tx.messages[id()].update({
-  //     chatId: 'welcome',
-  //     text: welcome,
-  //     type: 'answer',
-  //   }).link({ chats: 'welcome' }),
-  // );
+  await db.transact(
+    db.tx.messages[id()].update({
+      chatId,
+      text: welcome,
+      type: 'answer',
+    }).link({ chats: chatId }),
+  );
 }
