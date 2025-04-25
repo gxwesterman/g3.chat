@@ -37,7 +37,7 @@ export async function initDefaultPages(sessionId: string) {
   await db.transact(
     db.tx.messages[id()].update({
       chatId,
-      text: 'What is G3 Chat',
+      text: 'What is G3 Chat?',
       type: 'question',
     }).link({ chats: chatId }),
   );
