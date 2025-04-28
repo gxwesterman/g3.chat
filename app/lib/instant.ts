@@ -55,18 +55,18 @@ export async function initDefaultPages(sessionId: string) {
   const faqChatId = id();
 
   await db.transact([
-    db.tx.chats[faqChatId].update({
-      urlId: 'faq',
-      sessionId: sessionId,
-      title: 'FAQ'
-    })],
-  );
-  
-  await db.transact([
     db.tx.chats[welcomeChatId].update({
       urlId: 'welcome',
       sessionId: sessionId,
       title: 'Welcome to G3 Chat'
+    })],
+  );
+
+  await db.transact([
+    db.tx.chats[faqChatId].update({
+      urlId: 'faq',
+      sessionId: sessionId,
+      title: 'FAQ'
     })],
   );
 

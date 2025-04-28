@@ -10,8 +10,8 @@ export async function setSession() {
     const session = cookieStore.get('session');
     if (!session) {
       const sessionId = id();
-      await initDefaultPages(sessionId);
       await createSession(sessionId);
+      await initDefaultPages(sessionId);
       return 1;
     } else {
       return 0;
