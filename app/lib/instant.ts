@@ -23,11 +23,47 @@ We're free. It's a personal project that uses a free API. Why would we charge?
 
 Reply here to get started. Or start a new chat!`;
 
+const faq = `
+### Who made G3 Chat?
+
+Me. Griffin. Follow me on [twitter](https://x.com/gxweste). 
+
+I also made [Cheli](https://cheli.vercel.app).
+
+### How did you make G3 Chat so fast???
+
+Literally just instandb and router.push.
+
+### Any pro tips?
+
+- Nope!
+
+### What's next for G3 Chat?
+
+Great question. I have a long list of wishes that I'm hoping to get added soon, like...
+- Hotkeys
+- Support for various LLMs
+- Better markdown parsing
+- Real auth
+- Real-time response syncing
+- Idk maybe abandon the T3 bit and make it it's own app
+`;
+
 export async function initDefaultPages(sessionId: string) {
 
-  const chatId = id();
+  const welcomeChatId = id();
+  const faqChatId = id();
+
   await db.transact([
-    db.tx.chats[chatId].update({
+    db.tx.chats[faqChatId].update({
+      urlId: 'faq',
+      sessionId: sessionId,
+      title: 'FAQ'
+    })],
+  );
+  
+  await db.transact([
+    db.tx.chats[welcomeChatId].update({
       urlId: 'welcome',
       sessionId: sessionId,
       title: 'Welcome to G3 Chat'
@@ -36,17 +72,25 @@ export async function initDefaultPages(sessionId: string) {
 
   await db.transact(
     db.tx.messages[id()].update({
-      chatId,
+      chatId: welcomeChatId,
       text: 'What is G3 Chat?',
       type: 'question',
-    }).link({ chats: chatId }),
+    }).link({ chats: welcomeChatId }),
   );
 
   await db.transact(
     db.tx.messages[id()].update({
-      chatId,
+      chatId: welcomeChatId,
       text: welcome,
       type: 'answer',
-    }).link({ chats: chatId }),
+    }).link({ chats: welcomeChatId }),
+  );
+
+  await db.transact(
+    db.tx.messages[id()].update({
+      chatId: faqChatId,
+      text: faq,
+      type: 'answer',
+    }).link({ chats: faqChatId }),
   );
 }
