@@ -90,7 +90,7 @@ body {
     --sidebar-ring: 217.2 91.2% 59.8%;
     --chat-border: 334.3 32.6% 16.9%;
     --chat-background: 270 16.13% 12.16%;
-    --chat-accent: rgba(25,21,29,.33);
+    --chat-accent: rgba(25,21,30,.86);
     --gradient: 309 15% 9%;
     --color-pink-100: #f2ebfa;
     --color-pink-200: #eadef7;
@@ -182,3 +182,9 @@ body {
 .dark .background-gradient {
   background-image: radial-gradient(closest-corner at 120px 36px, rgba(255, 1, 111, 0.19), rgba(255, 1, 111, 0.08)), linear-gradient(rgb(63, 51, 69) 15%, rgb(7, 3, 9))
 }
+code:not(pre > code) {
+  background-color: var(--chat-accent);
+	@apply px-1.5 py-1 rounded-sm whitespace-break-spaces text-[85%]
+}
+.prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *))::before { @apply content-none }
+.prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *))::after { @apply content-none }
