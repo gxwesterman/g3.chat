@@ -8,9 +8,9 @@ export async function setSession() {
   try {
     const cookieStore = await cookies();
     const session = cookieStore.get('session');
-    const sessionId = id();
     if (!session) {
-      await initDefaultPages(sessionId);
+      const sessionId = id();
+      initDefaultPages(sessionId);
       await createSession(sessionId);
       return 1;
     } else {
