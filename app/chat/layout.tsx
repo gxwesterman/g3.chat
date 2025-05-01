@@ -17,13 +17,6 @@ export default function ChatLayout() {
   const pageChatId = pathname.split("/").pop() || "";
 
   useEffect(() => {
-    const login = async () => {
-      await setSession();
-    }
-    login();
-  }, []);
-
-  useEffect(() => {
     const cookies = document.cookie.split(';');
     const userIdCookie = cookies.find(cookie => cookie.trim().startsWith('session='));
     const extractedUserId = userIdCookie ? userIdCookie.split('=')[1].trim() : '';
