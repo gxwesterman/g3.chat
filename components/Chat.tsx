@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect, JSX, useMemo } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import ChatForm from "@/components/ChatForm";
 import { usePathname } from "next/navigation";
 import { Message } from "@/lib/types";
@@ -10,8 +10,6 @@ export default function Chat({ messages }: { messages: Message[] }) {
   const pathname = usePathname();
   const [output, setOutput] = useState<React.ReactNode[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [streamingId, setStreamingId] = useState("");
-  const test = useRef<{ [key: string]: JSX.Element }>({});
 
   const renderMarkdown = (content: string) => {
     return <ReactMarkdown>{content}</ReactMarkdown>;
@@ -26,24 +24,12 @@ export default function Chat({ messages }: { messages: Message[] }) {
     }
   }, [pathname]);
 
-  const stringResult = useMemo(() => {
-    return output.map(node => {
-      if (React.isValidElement(node)) {
-        const props = node.props as { children: string };
-        return String(props.children || '');
-      }
-      return String(node || '');
-    }).join('');
-  }, [output]);
-
   return (
     <div className="absolute bottom-0 top-0 w-full">
       <ChatForm
         messages={messages}
         output={output}
         setOutput={setOutput}
-        streamingId={streamingId}
-        setStreamingId={setStreamingId}
       />
       <div
         ref={scrollRef}
@@ -52,16 +38,13 @@ export default function Chat({ messages }: { messages: Message[] }) {
       >
         <div className="mx-auto flex w-full max-w-3xl flex-col space-y-12 p-4 pb-8">
           {messages.map((message) => {
-            if (message.type === "answer" && !test.current[message.id]) {
-              test.current[message.id] = renderMarkdown(message.text);
-            }
             return (
               <div key={message.id}>
                 {message.type === "question" ? (
                   <div className="flex justify-end">
                     <div className="group relative inline-block max-w-[80%] break-words rounded-2xl border border-secondary/50 bg-secondary/50 p-4 text-left">
                       <div className="prose prose-pink prose-invert max-w-none prose-pre:m-0 prose-pre:bg-transparent prose-pre:p-0">
-                        <p>{message.text}</p>
+                        {renderMarkdown(message.text)}
                       </div>
                     </div>
                   </div>
@@ -69,7 +52,7 @@ export default function Chat({ messages }: { messages: Message[] }) {
                   <div className="flex justify-start chat-content">
                     <div className="group relative w-full max-w-full break-words">
                       <div className="space-y-4 prose prose-pink prose-invert max-w-none prose-pre:m-0 prose-pre:bg-transparent prose-pre:p-0">
-                        {test.current[message.id]}
+                        {renderMarkdown(message.text)}
                       </div>
                     </div>
                   </div>
@@ -77,15 +60,6 @@ export default function Chat({ messages }: { messages: Message[] }) {
               </div>
             );
           })}
-          {streamingId === pathname.split("/").pop() && (
-            <div className="flex justify-start chat-content">
-              <div className="group relative w-full max-w-full break-words">
-                <div className="space-y-4 prose prose-pink prose-invert max-w-none prose-pre:m-0 prose-pre:bg-transparent prose-pre:p-0">
-                  <ReactMarkdown>{stringResult}</ReactMarkdown>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </div>
