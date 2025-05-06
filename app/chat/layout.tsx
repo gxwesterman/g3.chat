@@ -8,7 +8,6 @@ import { usePathname } from "next/navigation";
 import Chat from "@/components/Chat";
 import { Border } from "@/components/Border";
 import { useEffect, useState } from "react";
-import { setSession } from "@/app/actions/setSession";
 
 export default function ChatLayout() {
 
