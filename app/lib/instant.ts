@@ -32,7 +32,7 @@ I also made [Cheli](https://cheli.vercel.app).
 
 ### How did you make G3 Chat so fast???
 
-Literally just instandb and router.push.
+Literally just instandb and history.pushState().
 
 ### Any pro tips?
 
