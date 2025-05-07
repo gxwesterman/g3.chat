@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import ChatForm from "@/components/ChatForm";
 import { usePathname } from "next/navigation";
 import { Message } from "@/lib/types";
@@ -8,7 +8,6 @@ import ReactMarkdown from "react-markdown";
 
 export default function Chat({ messages }: { messages: Message[] }) {
   const pathname = usePathname();
-  const [output, setOutput] = useState<React.ReactNode[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const renderMarkdown = (content: string) => {
@@ -28,8 +27,6 @@ export default function Chat({ messages }: { messages: Message[] }) {
     <div className="absolute bottom-0 top-0 w-full">
       <ChatForm
         messages={messages}
-        output={output}
-        setOutput={setOutput}
       />
       <div
         ref={scrollRef}

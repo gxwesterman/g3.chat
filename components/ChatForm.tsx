@@ -48,12 +48,8 @@ function updateMessage(id: string, content: React.ReactNode[]) {
 
 export default function ChatForm({
   messages,
-  output,
-  setOutput,
 }: {
   messages: { [x: string]: string; id: string; }[],
-  output: React.ReactNode[],
-  setOutput: (output: React.ReactNode[]) => void,
 }) {
   const pathname = usePathname();
   let pageChatId = (pathname.split('/').pop() || '');
@@ -64,6 +60,7 @@ export default function ChatForm({
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const requestRef = useRef<number>(null);
   const [answerId, setAnswerId] = useState('');
+  const [output, setOutput] = useState<React.ReactNode[]>([]);
 
   useEffect(() => {
     const streamText = () => {
