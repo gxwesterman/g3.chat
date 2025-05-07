@@ -30,7 +30,6 @@ export default function Chat({ messages }: { messages: Message[] }) {
       />
       <div
         ref={scrollRef}
-        key={pathname}
         className="scrollbar scrollbar-w-2 scrollbar-thumb-gray-700 scrollbar-track-transparent hover:scrollbar-thumb-gray-600 absolute inset-0 overflow-y-scroll pt-3.5 pb-[144px]"
       >
         <div className="mx-auto flex w-full max-w-3xl flex-col space-y-12 p-4 pb-8">
